@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+    Успешный импорт SAPGOODS.xlsx
+{% endblock %}
+{% block content %}
+    <div class="contact-us">
+        <div class="alert alert-warning alert-auto-close">
+            <div class="container">
+                Что-то пошло не так. Файл <b>НЕ ЗАГРУЖЕН!!!</b> в папку uploads.
+            </div>
+        </div>
+    </div>
+{% endblock %}
