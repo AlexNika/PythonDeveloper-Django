@@ -11,10 +11,14 @@
 
 
 Management commands:
-python manage.py fill_category - заполнение категориями товаров модели/таблицы Category
-python manage.py file_save param1 param2 - копирование на сервер файла param1 с описанием param2
+- python manage.py fill_category - заполнение категориями товаров модели/таблицы Category
+- python manage.py file_save param1 param2 - копирование на сервер файла param1 с описанием param2
 	- param1 - путь к локальному файлу, который необходимо загрузить. Пример: с:/temp/upload_file.xlsx
 	- param2 - описание загружаемого файла. Пример: Файл со списком загружаемых товаров
 			   Описание должно быть бех кавычек, состоять из одного или нескольких слов через пробелы, длиной не более 256 символов.
 	Команда save_file загружает файлы в директорию MEDIA_ROOT/uploads.
 	
+Формы:
+1. Форма добавления категории http://127.0.0.1:8000/create_category/
+2. Форма обратной связи - контакты http://127.0.0.1:8000/contacts/
+3. Форма импорта/загрузки файла excel - http://127.0.0.1:8000/import_files/

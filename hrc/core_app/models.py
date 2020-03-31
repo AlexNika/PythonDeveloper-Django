@@ -5,7 +5,7 @@ class Category(models.Model):
     category_short_name = models.CharField(max_length=10, unique=True)
     category_name = models.CharField(max_length=64, unique=True)
     category_description = models.CharField(max_length=256, blank=True)
-    objects = models.Manager()
+    # objects = models.Manager()
 
     def __str__(self):
         return self.category_name
