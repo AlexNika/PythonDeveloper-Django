@@ -18,6 +18,7 @@
     <link href="{% static 'assets/css/demo.css' %}" rel="stylesheet"/>
     <link href="{% static 'assets/css/examples.css' %}" rel="stylesheet"/>
     <link href="{% static 'assets/css/pe-icon-7-stroke.css' %}" rel="stylesheet"/>
+    <link href="{% static 'assets/css/hcl.css' %}" rel="stylesheet"/>
 
     <!--     Font Awesome     -->
     <link href="{% static 'bootstrap3/css/font-awesome.css' %}" rel="stylesheet">
@@ -42,7 +43,7 @@
                     <a href="http://www.hansa.ru" target="_blank">
                         <div class="logo-container">
                             <div class="logo">
-                                <img src="{% static 'assets/img/hansa_logo.jpg' %}">
+                                <img src="{% static 'assets/img/hansa_logo.jpg' %}" alt="">
                             </div>
                         </div>
                     </a>
@@ -52,10 +53,22 @@
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
                         <li class="active">
-                            <a href="{% url 'core_app:main' %}">
+                            <a href="{% url 'core_app:product_list' %}">
                                 <i class="fa fa-home"></i>
                                 Главная
                             </a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="{% url 'core_app:category_list' %}" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-list" aria-hidden="true"></i>
+                                Категории <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                {% for category in categories %}
+                                <li><a href="{% url 'core_app:category_detail' pk=category.pk %}">
+                                    {{ category.category_short_name }} &bull; {{ category.category_name }}</a></li>
+                                {% endfor %}
+                            </ul>
                         </li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -64,14 +77,21 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li>
-                                    <a href="{% url 'core_app:create_category' %}">Создание категории в ручную</a>
+                                    <a href="{% url 'core_app:category_list' %}">Список категорий</a>
                                 </li>
                                 <li>
-                                    <a href="{% url 'core_app:main' %}">Создание продукта в ручную</a>
+                                    <a href="{% url 'core_app:category_create' %}">Создание категории в ручную</a>
                                 </li>
                                 <li class="divider"></li>
                                 <li>
-                                    <a href="{% url 'file_parser_app:import_file' %}">Импорт файла SAP_GOODS.xlsx</a>
+                                    <a href="{% url 'core_app:product_list' %}">Список моделей</a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'core_app:product_create' %}">Создание модели в ручную</a>
+                                </li>
+                                <li class="divider"></li>
+                                <li>
+                                    <a href="{% url 'file_parser_app:import_file' %}">Импорт базового файла моделей</a>
                                 </li>
                                 <li class="divider"></li>
                                 <li><a href="#">Process...</a></li>
@@ -81,25 +101,16 @@
                                 <li><a href="#">Final process...</a></li>
                             </ul>
                         </li>
-                        <li>
-                            <a href="javascript:void(0);" data-toggle="search" class="hidden-xs"><i
-                                    class="fa fa-search"></i></a>
-                        </li>
                     </ul>
-                    <form class="navbar-form navbar-left navbar-search-form" role="search">
-                        <div class="form-group">
-                            <input type="text" value="" class="form-control" placeholder="Поиск...">
-                        </div>
-                    </form>
                     <ul class="nav navbar-nav navbar-right">
                         <li>
-                            <a href="{% url 'core_app:main' %}">
+                            <a href="{% url 'core_app:product_list' %}">
                                 <i class="fa fa-user"></i>
                                 Регистрация
                             </a>
                         </li>
                         <li>
-                            <a href="{% url 'core_app:main' %}">
+                            <a href="{% url 'core_app:product_list' %}">
                                 <i class="fa fa-sign-in" aria-hidden="true"></i>
                                 Вход
                             </a>
@@ -121,23 +132,51 @@
 
 </div> <!-- end menu-dropdown -->
 <div class="main">
+    <div class="form-group form-search">
+        <form action="{% url 'core_app:product_search' %}" method="get">
+            <label>
+                <input type="search" name="q" class="form-search form-control-search" placeholder="Поиск..."
+                       required="">
+            </label>
+            <button type="submit" class="btn-search btn-round btn-tooltip" data-toggle="tooltip"
+                    data-placement="top" title="Поиск возможен по Hansa code, Index и EAN code">
+                <i class="fa fa-search" aria-hidden="True"></i>
+            </button>
+        </form>
+    </div>
+    <div class="fresh-table full-color-transparent">
+        <div class="form-group">
+            <form action="{% url 'core_app:product_filter' %}" method="get" class="section-title-center">
+                <span>Выберите статус модели</span>
+                {% for status in unique_status %}
+                    <label class="checkbox checkbox-blue" for="checkbox">
+                        <input type="checkbox" value="" data-toggle="checkbox" checked>
+                        {{ status }}
+                    </label>
+                {% endfor %}
+                <button type="submit" class="btn btn-danger btn-fill">
+                    <span>Применить</span>
+                </button>
+            </form>
+        </div>
+    </div>
     <div class="container">
         {% block content %}{% endblock %}
     </div>
 </div>
 </body>
-<footer>
-    <div class="row">
-        <div class="col-md-12 text-center">
-            <div class="credits">
-                &copy;
-                <script>document.write(new Date().getFullYear())</script>
-                RICH CONTENT portal by <a href="mailto:alexander.nikolaev@hansa.ru"> A.Nikolaev</a>, made with <i
-                    class="fa fa-heart heart" alt="love"></i> for HANSA
-            </div>
-        </div>
-    </div>
-</footer>
+{#<footer>#}
+{#    <div class="row">#}
+{#        <div class="col-md-12 text-center">#}
+{#            <div class="credits">#}
+{#                &copy;#}
+{#                <script>document.write(new Date().getFullYear())</script>#}
+{#                RICH CONTENT portal by <a href="mailto:alexander.nikolaev@hansa.ru"> A.Nikolaev</a>, made with <i#}
+{#                    class="fa fa-heart heart" alt="love"></i> for HANSA#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{#</footer>#}
 
 <script src="{% static 'jquery/jquery-1.10.2.js' %}" type="text/javascript"></script>
 <script src="{% static 'assets/js/jquery-ui-1.10.4.custom.min.js' %}" type="text/javascript"></script>

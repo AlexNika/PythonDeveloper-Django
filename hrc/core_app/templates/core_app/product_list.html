@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+    Список товаров
+{% endblock %}
+{% block content %}
+    <link href="{% static 'assets/css/fresh-bootstrap-table.css' %}" rel="stylesheet"/>
+        <div class="fresh-table full-color-transparent">
+            <h4 class="section-title-center">Список моделей</h4>
+            <table id="fresh-table" class="table">
+                <thead>
+                    <th data-field="product_index">Hansa код</th>
+                    <th data-field="product_code">Описание</th>
+                    <th data-field="product_description">Статус</th>
+                    <th data-field="product_status">Операции</th>
+                </thead>
+                <tbody>
+                {% for item in products %}
+                    <tr>
+                        <td>
+{#                            <a class="code" href="{% url 'core_app:product_detail' pk=item.pk %}">#}
+                            <a class="code" href="{{ item.get_absolute_url }}">
+                                {{ item.product_code }}
+                            </a>
+                        </td>
+                        <td>{{ item.product_description }}</td>
+                        <td>{{ item.product_status }}</td>
+                        <td>
+                            <a rel="tooltip" title="Изменить" class="change table-action edit"
+                               href="{% url 'core_app:product_update' slug=item.product_index %}">
+                                <i class="fa fa-edit"></i>
+                            </a>
+                            <a rel="tooltip" title="Удалить" class="table-action remove"
+{#                               href="{% url 'core_app:category_delete' pk=item.pk %}"><i class="fa fa-remove"></i>#}
+                               href="{{ item.get_absolute_url }}">
+                                <i class="fa fa-remove"></i>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    <div class="space-30"></div>
+    <div class="pagination pull-left">
+        {% if page_obj.has_previous %}
+            <a class="apagination" href="?page=1">
+                <i class="fa fa-backward" aria-hidden="true"></i>
+            </a>
+            <a class="apagination" href="?page={{ page_obj.previous_page_number }}">
+                <i class="fa fa-play fa-playback" aria-hidden="true"></i>
+            </a>
+        {% endif %}
+        <span class="current">
+            Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}
+        </span>
+        {% if page_obj.has_next %}
+            <a class="apagination" href="?page={{ page_obj.next_page_number }}">
+                <i class="fa fa-play" aria-hidden="true"></i>
+            </a>
+            <a class="apagination" href="?page={{ page_obj.paginator.num_pages }}">
+                <i class="fa fa-forward" aria-hidden="true"></i>
+            </a>
+        {% endif %}
+    </div>
+    <div class="submit pull-right">
+        <a href="{% url 'core_app:product_create' %}" class="btn btn-danger btn-fill pull-right" rel="stylesheet">
+            Создать новый продукт
+        </a>
+    </div>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+    Список категорий товаров
+{% endblock %}
+{% block content %}
+    <link href="{% static 'assets/css/fresh-bootstrap-table.css' %}" rel="stylesheet"/>
+        <div class="fresh-table full-color-transparent">
+            <h4 class="section-title-center">Список категорий</h4>
+            <table id="fresh-table" class="table">
+                <thead>
+                <th data-field="category_short_name">Abbr</th>
+                <th data-field="category_name">Name</th>
+                <th data-field="category_description">Description</th>
+                </thead>
+                <tbody>
+                {% for item in object_list %}
+                    <tr>
+                        <td>
+                            <a href="{% url 'core_app:category_detail' pk=item.pk %}">
+                                {{ item.category_short_name }}
+                            </a>
+                        </td>
+                        <td>{{ item.category_name }}</td>
+                        <td>{{ item.category_description }}</td>
+                        <td>
+                            <a rel="tooltip" title="Изменить" class="table-action edit"
+                               href="{% url 'core_app:category_update' pk=item.pk %}"><i class="fa fa-edit"></i>
+                            </a>
+                            <a rel="tooltip" title="Удалить" class="table-action remove"
+                               href="{% url 'core_app:category_delete' pk=item.pk %}"><i class="fa fa-remove"></i>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    <div class="space-70"></div>
+    <div class="submit">
+        <a href="{% url 'core_app:category_create' %}" class="btn btn-danger btn-fill pull-right" rel="stylesheet">
+            Создать новую категорию
+        </a>
+    </div>
+{% endblock %}
