@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+    Найдено по запрсу "{{ query }}"
+{% endblock %}
+{% block content %}
+    <link href="{% static 'assets/css/fresh-bootstrap-table.css' %}" rel="stylesheet"/>
+        <div class="fresh-table full-color-transparent">
+            <h4 class="section-title-center">Найдено по запросу "{{ query }}"</h4>
+            <form action="{% url 'core_app:product_filter' %}" method="get" class="section-title-center">
+                <span>Выверите статус модели</span>
+                {% for status in unique_status %}
+                    <label class="checkbox checkbox-blue" for="checkbox">
+                        <input type="checkbox" value="" data-toggle="checkbox" checked>
+                        {{ status }}
+                    </label>
+                {% endfor %}
+                <button type="submit" class="btn btn-danger btn-fill">
+                    <span>Применить</span>
+                </button>
+            </form>
+            <table id="fresh-table" class="table">
+                <thead>
+                    <th data-field="product_index">Index</th>
+                    <th data-field="product_code">Hansa code</th>
+                    <th data-field="product_description">Description</th>
+                    <th data-field="product_status">Status</th>
+                </thead>
+                <tbody>
+                {% for item in products %}
+                    <tr>
+                        <td>
+                            <a class="code" href="{% url 'core_app:product_detail' pk=item.pk %}">
+                                {{ item.product_code }}
+                            </a>
+                        </td>
+                        <td>{{ item.product_description }}</td>
+                        <td>{{ item.product_status }}</td>
+                        <td>
+                            <a rel="tooltip" title="Изменить" class="change table-action edit"
+                               href="{% url 'core_app:product_detail' pk=item.pk %}"><i class="fa fa-edit"></i>
+                            </a>
+                            <a rel="tooltip" title="Удалить" class="table-action remove"
+                               href="{% url 'core_app:category_delete' pk=item.pk %}"><i class="fa fa-remove"></i>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    <div class="space-30"></div>
+    <div class="pagination pull-left">
+        {% if page_obj.has_previous %}
+            <a class="apagination" href="?page=1&q={{ query }}">
+                <i class="fa fa-backward" aria-hidden="true"></i>
+            </a>
+            <a class="apagination" href="?page={{ page_obj.previous_page_number }}&q={{ query }}">
+                <i class="fa fa-play fa-playback" aria-hidden="true"></i>
+            </a>
+        {% endif %}
+        <span class="current">
+            Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}
+        </span>
+        {% if page_obj.has_next %}
+            <a class="apagination" href="?page={{ page_obj.next_page_number }}&q={{ query }}">
+                <i class="fa fa-play" aria-hidden="true"></i>
+            </a>
+            <a class="apagination" href="?page={{ page_obj.paginator.num_pages }}&q={{ query }}">
+                <i class="fa fa-forward" aria-hidden="true"></i>
+            </a>
+        {% endif %}
+    </div>
+    <div class="submit pull-right">
+        <a href="{% url 'core_app:product_create' %}" class="btn btn-danger btn-fill pull-right" rel="stylesheet">
+            Создать новый продукт
+        </a>
+    </div>
+{% endblock %}

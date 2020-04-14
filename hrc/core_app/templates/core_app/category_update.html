@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+    Изменение категории "{{ object.category_name }}"
+{% endblock %}
+{% block content %}
+    <link href="{% static 'assets/css/fresh-bootstrap-table.css' %}" rel="stylesheet"/>
+    <div class="contact-us">
+        <h4 class="section-title-center">Изменение категории "{{ object.category_name }}"</h4>
+        <div class="row">
+            <form role="form" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    {{ form.as_p }}
+                </div>
+                <div class="submit">
+                    <input type="submit" class="btn btn-danger btn-fill pull-left" value="Обновить"/>
+                </div>
+                <div class="submit">
+                    <a href="{% url 'core_app:category_list' %}" class="btn btn-danger btn-fill pull-right">
+                    Отменить
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

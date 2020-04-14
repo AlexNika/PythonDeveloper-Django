@@ -1,0 +1,124 @@
+.pagination {
+	border: 1px solid transparent;
+    border-radius: 4px;
+	border-width: 2px;
+	border-color: #FF3B30;
+    display: inline-block;
+    margin: 5px 0;
+	color: #FFFFFF;
+    background-color: #FF3B30;
+	font-weight: 600;
+	line-height: 1.428571429;
+	vertical-align: middle;
+}
+
+.apagination {
+    color: #FFFFFF;
+    font-weight: 600;
+	line-height: 1.428571429;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+}
+
+/* .fresh-table a {
+    color: #FFFFFF;
+    text-decoration: none !important;
+}
+
+.code {
+	color: #FFFFFF;
+    text-decoration: underline !important;
+}
+
+.change {
+	color: #FFFFFF !important;
+	text-decoration: none !important;
+}
+ */
+
+.current {
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+.fa-playback {
+  transform: rotate(180deg);
+}
+
+.navbar-ct-blue {
+    background-color: cornflowerblue;
+    opacity: 0.9;
+}
+
+.logo-container .logo {
+    border: 0px solid #FFFFFF;
+}
+
+.form-group {
+    margin-bottom: 0px !important; 
+}
+
+.form-search {
+    max-width: 400px;
+    padding: 0 15px;
+	margin-right: auto;
+	margin-left: auto;
+    position: relative;
+}
+
+.form-search .form-control-search {
+    background-color: #FFFFFF;
+    border: medium none;
+    border-radius: 30px;
+    box-shadow: 0 0 0;
+    color: #000000;
+    display: inline-block;
+    font-size: 16px;
+    font-weight: 300;
+    height: 40px;
+    line-height: 1.42857;
+    padding: 6px 20px;
+    vertical-align: middle;
+    transition: background-color .2s;
+}
+
+.form-search .btn-search:hover, .form-search .btn-submit:focus, .form-search .btn-submit:active {
+    opacity: 1;
+    background: #FFFFFF;
+    color: #666666;
+}
+
+.btn-search {
+    background-color: #FFFFFF;
+    font-weight: 400;
+    opacity: 1;
+    padding: 8px 16px;
+    color: #000000;
+}
+
+.section-title-center {
+	margin: 15px 0 15px !important;
+}
+
+.checkbox, .radio {
+	margin-left: 5px;
+	color: cornflowerblue;
+    display: inline;
+    vertical-align: baseline;
+    margin-bottom: 12px;
+    padding-right: 15px;
+	padding-left: 20px;
+}
+
+.checkbox .icons, .radio .icons {
+    color: cornflowerblue;
+}
+
+.fresh-table[class*=full-color-] .btn.btn-fill {
+    color: #FFFFFF;
+    background-color: #FF3B30 !important;
+	border-color: #FF3B30 !important;
+	border-radius: 4px !important;
+	border-width: 2px !important;
+}

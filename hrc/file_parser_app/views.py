@@ -1,20 +1,27 @@
-from django.conf import settings
-from django.shortcuts import render, HttpResponseRedirect
-from django.urls import reverse
+from django.shortcuts import render
 
-from .models import File
+from core_app.models import Product
+from core_app.views import CategoryContextMixin, StatusContextMixin
 from .forms import FileForm
+from .models import File
 
 
 def import_file(request):
+    is_loaded = False
     if request.method == 'GET':
         form = FileForm()
-        return render(request, 'file_parser_app/import_SAPGOODS_file.html', context={'form': form})
+        return render(request, 'file_parser_app/import_XLSX_file.html', context={'form': form})
     else:
-        files = File.objects.all()
         form = FileForm(request.POST, files=request.FILES)
         if form.is_valid():
+            file_name = form.cleaned_data.get('file_name')
             form.save()
-            return render(request, 'file_parser_app/notification_success.html')
+            is_loaded = True
+            file = File.objects.last()
+            Product.xls_parse(file.file_name)
+            return render(request, 'file_parser_app/import_XLSX_file.html',
+                          context={'form': form, 'is_loaded': is_loaded, 'file_name': file_name})
         else:
-            return render(request, 'file_parser_app/notification_failed.html')
+            file_name = form.cleaned_data.get('file_name')
+            return render(request, 'file_parser_app/import_XLSX_file.html',
+                          context={'form': form, 'is_loaded': is_loaded, 'file_name': file_name})

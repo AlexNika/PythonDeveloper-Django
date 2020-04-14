@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+    {{ product.product_description }}
+{% endblock %}
+{% block content %}
+    <link href="{% static 'assets/css/fresh-bootstrap-table.css' %}" rel="stylesheet"/>
+    <div class="contact-us">
+        <div class="fresh-table full-color-transparent">
+            <h4 class="section-title-center">{{ product.product_description }}</h4>
+            <table id="fresh-table" class="table">
+                <tbody>
+                <tr>
+                    <td>
+                        Индекс:
+                        <span class="pull-right text-muted">{{ product.product_index }}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Hansa код:
+                        <span class="pull-right text-muted">{{ product.product_code }}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        EAN код (штрихкод):
+                        <span class="pull-right text-muted">{{ product.product_eancode }}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Категория:
+                        <span class="pull-right text-muted">{{ product.product_category }}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Описание:
+                        <span class="pull-right text-muted">{{ product.product_description }}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Статус:
+                        <span class="pull-right text-muted">{{ product.product_status }}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        URL на сайте HANSA:
+                        <span class="pull-right text-muted">
+                            {% if product.product_site_url %}
+                                <a href="{{ product.product_site_url }}" target="_blank">
+                                    {{ product.product_site_url }}
+                                </a>
+                            {% else %}
+                                {{ product.product_site_url }}
+                            {% endif %}
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        FTP URL в Hansa content library:
+                        <span class="pull-right text-muted">{{ product.product_ftp_url }}</span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="space-30"></div>
+        <div class="submit">
+            <a href="{% url 'core_app:product_update' slug=product.product_index %}"
+               class="btn btn-danger btn-fill pull-left">
+                Изменить товар
+            </a>
+{#            <a href="{% url 'core_app:category_delete' pk=product.pk %}" class="btn btn-danger btn-fill pull-right">#}
+            <a href="{{ product.get_absolute_url }}" class="btn btn-danger btn-fill pull-right">
+                Удалить товар
+            </a>
+        </div>
+    </div>
+{% endblock %}

@@ -1,14 +1,8 @@
-{% extends "base.html" %}
 {% load static %}
-{% block title %}
-    Успешный импорт SAPGOODS.xlsx
-{% endblock %}
-{% block content %}
-    <div class="contact-us">
-        <div class="alert alert-warning alert-auto-close">
-            <div class="container">
-                Что-то пошло не так. Файл <b>НЕ ЗАГРУЖЕН!!!</b> в папку uploads.
-            </div>
+    <div class="alert alert-warning alert-auto-close">
+        <div class="container">
+            Файл пока <b>НЕ ЗАГРУЖЕН!!!</b> в папку uploads.<br>
+            Файл должен быть формата XLSX, определенной структуры.<br>
+            Чтобы узнать структуру файла, обратитесь к менеджерам проекта.
         </div>
     </div>
-{% endblock %}

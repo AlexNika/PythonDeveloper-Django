@@ -249,6 +249,7 @@
 .fa-check:before {
   content: "\f00c";
 }
+.fa-remove:before,
 .fa-times:before {
   content: "\f00d";
 }

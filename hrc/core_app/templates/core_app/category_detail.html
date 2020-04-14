@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+    Категория "{{ object.category_name }}"
+{% endblock %}
+{% block content %}
+    <link href="{% static 'assets/css/fresh-bootstrap-table.css' %}" rel="stylesheet"/>
+    <div class="contact-us">
+        <div class="fresh-table full-color-transparent">
+            <h4 class="section-title-center">Категория "{{ object.category_name }}"</h4>
+            <table id="fresh-table" class="table">
+                <tbody>
+                <tr>
+                    <td>
+                        Короткое имя категории:
+                        <span class="pull-right text-muted">{{ object.category_short_name }}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Имя категории:
+                        <span class="pull-right text-muted">{{ object.category_name }}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Описание категории:
+                        <span class="pull-right text-muted">{{ object.category_description }}</span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="space-30"></div>
+        <div class="submit">
+            <a href="{% url 'core_app:category_update' pk=object.pk %}" class="btn btn-danger btn-fill pull-left">
+                Изменить категорию
+            </a>
+            <a href="{% url 'core_app:category_delete' pk=object.pk %}" class="btn btn-danger btn-fill pull-right">
+                Удалить категорию
+            </a>
+        </div>
+    </div>
+{% endblock %}

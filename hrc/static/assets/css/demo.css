@@ -282,6 +282,18 @@
     height: 30px;
     display: block;
 }
+.space-60 {
+    height: 60px;
+    display: block;
+}
+.space-70 {
+    height: 70px;
+    display: block;
+}
+.space-80 {
+    height: 80px;
+    display: block;
+}
 /*.credits{
     display: block;
     margin: 15px 0;

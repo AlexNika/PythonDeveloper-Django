@@ -684,6 +684,7 @@ input[type=file] > input[type=button]::-moz-focus-inner {
   background-color: #FF3B30;
   opacity: 1;
   filter: alpha(opacity=100);
+  position: relative;
 }
 .btn-danger.btn-fill:hover, .btn-danger.btn-fill:focus, .btn-danger.btn-fill:active, .btn-danger.btn-fill.active, .open > .btn-danger.btn-fill.dropdown-toggle {
   background-color: #EE2D20;
@@ -1129,10 +1130,12 @@ input[type=file] > input[type=button]::-moz-focus-inner {
   border-radius: 30px !important;
 }
 .fresh-table a {
-  color: #AAAAAA;
+  color: #6495ED !important;
+  /* text-decoration: underline !important; */
 }
 .fresh-table a:hover, .fresh-table a:focus {
-  color: #898989;
+  color: #505CD6 !important;
+  /* text-decoration: underline !important; */
 }
 .fresh-table input[type=radio],
 .fresh-table input[type=checkbox] {
@@ -1545,8 +1548,8 @@ input[type=file] > input[type=button]::-moz-focus-inner {
   color: #FFFFFF;
   background: transparent;
   background-size: 250% 250%;
-  height: 280px;
-  overflow: scroll;
+  /* height: 280px; */
+  /* overflow: scroll; */
 }
 .fresh-table.full-color-green {
   background: #83CB1E;

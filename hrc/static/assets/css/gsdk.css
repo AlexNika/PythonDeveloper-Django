@@ -49,7 +49,8 @@ h6, .h6 {
 
 p {
   font-size: 16px;
-  line-height: 1.5; }
+  line-height: 1.5;
+  color: white !important;  }
 
 h1 small, h2 small, h3 small, h4 small, h5 small, h6 small, .h1 small, .h2 small, .h3 small, .h4 small, .h5 small, .h6 small, h1 .small, h2 .small, h3 .small, h4 .small, h5 .small, h6 .small, .h1 .small, .h2 .small, .h3 .small, .h4 .small, .h5 .small, .h6 .small {
   color: #9A9A9A;
@@ -765,13 +766,17 @@ input.ct-red + span + label + span.switch-right {
   padding: 10px 15px;
   font-size: 14px; }
   .container .alert {
-    border-radius: 4px; }
+    border-radius: 0px;
+	left: 0;
+	right: 0;
+	width: 100%;
+    position: relative; }
   .navbar .alert {
     border-radius: 0;
     left: 0;
     position: absolute;
     right: 0;
-    top: 85px;
+    top: 300px;
     width: 100%;
     z-index: 3; }
   .navbar:not(.navbar-transparent) .alert {

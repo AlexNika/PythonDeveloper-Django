@@ -6,6 +6,14 @@
   color: #999;
 }
 
+.section-title-center {
+  font-weight: 300;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #CCCCCC;
+  color: #999;
+  text-align: center;
+}
+
 .section-sub-title {
   font-style: italic;
 }
