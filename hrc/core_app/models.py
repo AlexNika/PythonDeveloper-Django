@@ -1,19 +1,32 @@
 import os
+import requests
+import time
 import numpy as np
 import pandas as pd
 from django.db import models
 from django.urls import reverse
 
+from user_app.models import CoreUser
 from .constants import product_code_col, product_index_col, product_eancode_col, product_brand_col
 from .constants import product_category_col, product_status_col
-from .constants import true_ext, brand, category_dict
+from .constants import true_ext, brand, brand_url, category_dict
+from .constants import HEADER
 
 
-class Category(models.Model):
+class TimeStamp(models.Model):
+    create = models.DateTimeField(auto_now_add=True)
+    update = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        abstract = True
+
+
+class Category(TimeStamp):
     category_short_name = models.CharField(max_length=10, unique=True)
     category_name = models.CharField(max_length=64, unique=True)
     category_description = models.CharField(max_length=256, null=True, blank=True)
-#    category_url = models.SlugField(max_length=256, unique=True)
+    user = models.ForeignKey(CoreUser, default=1, on_delete=models.PROTECT)
+    is_active = models.BooleanField(default=True)
     objects = models.Manager()
 
     class Meta:
@@ -24,7 +37,7 @@ class Category(models.Model):
         return self.category_name
 
 
-class Product(models.Model):
+class Product(TimeStamp):
     product_code = models.CharField(max_length=16, blank=True, null=True)
     product_index = models.PositiveIntegerField(unique=True)
     product_eancode = models.CharField(max_length=16, unique=True)
@@ -40,13 +53,15 @@ class Product(models.Model):
         (archive_WS, 'WS'),
         (sellout_SZ, 'SZ'),
     ]
-    product_status = models.CharField(max_length=2,
+    product_status = models.CharField(max_length=5,
                                       choices=status_choices,
                                       default=active_Z9, blank=True, null=True)
     product_description = models.CharField(max_length=128, blank=True, null=True)
     product_site_url = models.URLField(max_length=128, blank=True, null=True)
     product_ftp_url = models.URLField(max_length=128, blank=True, null=True)
     product_category = models.ForeignKey(Category, on_delete=models.PROTECT)
+    user = models.ForeignKey(CoreUser, default=1, on_delete=models.PROTECT)
+    is_active = models.BooleanField(default=True)
     objects = models.Manager()
 
     class Meta:
@@ -85,6 +100,8 @@ class Product(models.Model):
                                 product.product_category = category
                                 product.product_description = Product.description_gen(row[product_code_col],
                                                                                       row[product_category_col])
+                                product.product_site_url = Product.get_site_url(row[product_code_col],
+                                                                                row[product_category_col])
                             except Category.DoesNotExist:
                                 continue
                             product.save()
@@ -93,6 +110,24 @@ class Product(models.Model):
     def description_gen(code, category):
         description = f'{category_dict[category][0]} {brand[0]} {code}'
         return description
+
+    @staticmethod
+    def get_site_url(code, category):
+        time.sleep(1)
+        code = code.lower()
+        _dot = '.'
+        _dash = '-'
+        _gap = ' '
+        if _dot in code:
+            code = code.replace(_dot, _dash)
+        elif _gap in code:
+            code = code.replace(_gap, '')
+        url = f'{brand_url}catalog/{category_dict[category][2]}/{code}/'
+        url_request = requests.get(url, headers=HEADER)
+        if url_request.status_code == 200:
+            return url
+        else:
+            return None
 
 
 class Content(models.Model):

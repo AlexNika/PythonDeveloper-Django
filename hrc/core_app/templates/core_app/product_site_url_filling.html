@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+    HCL | Заполнение продуктов данными
+{% endblock %}
+{% block content %}
+    <link href="{% static 'assets/css/fresh-bootstrap-table.css' %}" rel="stylesheet"/>
+    <div class="submit pull-right">
+        <a href="{% url 'core_app:product_filling' %}" class="btn btn-danger btn-fill pull-right" rel="stylesheet">
+            Заполнить ссылки на сайт
+        </a>
+    </div>
+        <div class="fresh-table full-color-transparent">
+            <h4 class="section-title-center">Заполнение продуктов данными</h4>
+            <table id="fresh-table" class="table">
+                <thead>
+                    <th data-field="product_code">Hansa код</th>
+                    <th data-field="product_description">URL на сайте HANSA.RU</th>
+                </thead>
+                <tbody>
+                {% for item in products %}
+                    <tr>
+                        <td>{{ item.product_code }}</td>
+                        <td>{{ item.product_site_url }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+{% endblock %}

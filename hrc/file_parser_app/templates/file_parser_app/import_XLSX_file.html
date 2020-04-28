@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 {% load static %}
 {% block title %}
-    Импорт файла
+    HCL | Импорт файла SAPGOODS
 {% endblock %}
 {% block content %}
     <div class="contact-us">
-        <h4 class="section-title-center">Импорт файла</h4>
+        <h4 class="section-title-center">Импорт файла Импорт файла SAPGOODS</h4>
         <div class="row">
             <form role="form" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
@@ -26,11 +26,11 @@
                     <div class="space-30"></div>
                 </div>
             </form>
-        {% if is_loaded %}
-            {% include "file_parser_app/notification_success.html" %}
-        {% else %}
-            {% include "file_parser_app/notification_failed.html" %}
-        {% endif %}
+{#        {% if is_loaded %}#}
+{#            {% include "file_parser_app/notification_success.html" %}#}
+{#        {% else %}#}
+{#            {% include "file_parser_app/notification_failed.html" %}#}
+{#        {% endif %}#}
         </div>
     </div>
 {% endblock %}

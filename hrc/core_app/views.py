@@ -1,32 +1,11 @@
-from django.conf import settings
-from django.core.mail import send_mail
-from django.db.models import F, Q
-from django.shortcuts import render, HttpResponseRedirect
-from django.template.context_processors import csrf
-from django.urls import reverse, reverse_lazy
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from django.views.generic.base import ContextMixin, View
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Q
+from django.urls import reverse_lazy
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, FormView
+from django.views.generic.base import ContextMixin
 
-from .forms import ContactForm, CategoryForm, ProductForm, ProductFilter
+from .forms import FeedbackForm, CategoryForm, ProductForm, ProductSiteUrl
 from .models import Category, Product
-
-
-# def contacts(request):
-#     if request.method == 'POST':
-#         form = ContactForm(request.POST)
-#         if form.is_valid():
-#             name = form.cleaned_data['name']
-#             email = form.cleaned_data['email']
-#             message = form.cleaned_data['message']
-#             subject = f'Сообщение с портара Hansa Content Library от {name}'
-#             send_mail(subject=subject, message=message, from_email=settings.DEFAULT_FROM_EMAIL, recipient_list=[email],
-#                       fail_silently=True)
-#             return HttpResponseRedirect(reverse('core_app:main'))
-#         else:
-#             return render(request, 'core_app/contacts.html', context={'form': form})
-#     else:
-#         form = ContactForm()
-#         return render(request, 'core_app/contacts.html', context={'form': form})
 
 
 class CategoryContextMixin(ContextMixin):
@@ -49,31 +28,14 @@ class StatusContextMixin(ContextMixin):
         return context
 
 
-class ContactsView(View, CategoryContextMixin, StatusContextMixin):
+class FeedbackView(FormView, CategoryContextMixin, StatusContextMixin):
+    template_name = 'core_app/feedback.html'
+    form_class = FeedbackForm
+    success_url = reverse_lazy('core_app:product_list')
 
-    class Meta:
-        abstract = True
-
-    template_name = 'core_app/contacts.html'
-
-    def get(self, request, *args, **kwargs):
-        form = ContactForm()
-        # context.update(csrf(request))
-        # context['form'] = ContactForm()
-        return render(request, template_name=self.template_name, context={'form': form})
-
-    def post(self, request, *args, **kwargs):
-        form = ContactForm(request.POST)
-        if form.is_valid():
-            name = form.cleaned_data['name']
-            email = form.cleaned_data['email']
-            message = form.cleaned_data['message']
-            subject = f'Сообщение с портара Hansa Content Library от {name}'
-            send_mail(subject=subject, message=message, from_email=settings.DEFAULT_FROM_EMAIL,
-                      recipient_list=[email], fail_silently=True)
-            return HttpResponseRedirect(reverse('core_app:product_list'))
-        else:
-            return render(request, 'core_app/contacts.html', context={'form': form})
+    def form_valid(self, form):
+        form.send_email()
+        return super(FeedbackView, self).form_valid(form)
 
 
 class CategoryListView(ListView, CategoryContextMixin, StatusContextMixin):
@@ -86,21 +48,25 @@ class CategoryDetailView(DetailView, CategoryContextMixin, StatusContextMixin):
     template_name = 'core_app/category_detail.html'
 
 
-class CategoryCreateView(CreateView, CategoryContextMixin, StatusContextMixin):
+class CategoryCreateView(LoginRequiredMixin, CreateView, CategoryContextMixin, StatusContextMixin):
     form_class = CategoryForm
     model = Category
     success_url = reverse_lazy('core_app:category_list')
     template_name = 'core_app/category_create.html'
 
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super(CategoryCreateView, self).form_valid(form)
 
-class CategoryUpdateView(UpdateView, CategoryContextMixin, StatusContextMixin):
+
+class CategoryUpdateView(LoginRequiredMixin, UpdateView, CategoryContextMixin, StatusContextMixin):
     form_class = CategoryForm
     model = Category
     success_url = reverse_lazy('core_app:category_list')
     template_name = 'core_app/category_update.html'
 
 
-class CategoryDeleteView(DeleteView, CategoryContextMixin, StatusContextMixin):
+class CategoryDeleteView(LoginRequiredMixin, DeleteView, CategoryContextMixin, StatusContextMixin):
     model = Category
     success_url = reverse_lazy('core_app:category_list')
     template_name = 'core_app/category_delete_confirm.html'
@@ -113,11 +79,6 @@ class ProductListView(ListView, CategoryContextMixin, StatusContextMixin):
     form = ProductForm
     template_name = 'core_app/product_list.html'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['query'] = self.request.GET.get('q')
-        return context
-
 
 class ProductDetailView(DetailView, CategoryContextMixin, StatusContextMixin):
     model = Product
@@ -126,49 +87,28 @@ class ProductDetailView(DetailView, CategoryContextMixin, StatusContextMixin):
     template_name = 'core_app/product_detail.html'
 
 
-class ProductCreateView(CreateView, CategoryContextMixin, StatusContextMixin):
+class ProductCreateView(LoginRequiredMixin, CreateView, CategoryContextMixin, StatusContextMixin):
     form_class = ProductForm
     model = Product
     success_url = reverse_lazy('core_app:product_list')
     template_name = 'core_app/product_create.html'
 
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super(ProductCreateView, self).form_valid(form)
 
-class ProductUpdateView(UpdateView, CategoryContextMixin, StatusContextMixin):
+
+class ProductUpdateView(LoginRequiredMixin, UpdateView, CategoryContextMixin, StatusContextMixin):
     form_class = ProductForm
     model = Product
+    paginate_by = 10
     context_object_name = 'product'
-    success_url = reverse_lazy('core_app:category_list')
+    success_url = reverse_lazy('core_app:product_list')
     slug_field = 'product_index'
     template_name = 'core_app/product_update.html'
 
 
-class FilterProductsView(ListView, CategoryContextMixin, StatusContextMixin):
-    model = Product
-    paginate_by = 10
-    context_object_name = 'products'
-    form = ProductForm
-    template_name = 'core_app/product_filter_result.html'
-
-    # def get(self, request, *args, **kwargs):
-    #     product_status = kwargs['product_status']
-    #     return super().get(request, *args, **kwargs)
-
-    def get_queryset(self):
-        queryset = Product.objects.filter(product_status__in=self.request.GET.getlist('product_status'))
-        return queryset
-
-    def get_context_data(self, **kwargs):
-        unique_status = Product.objects.order_by('product_status').distinct().values_list('product_status')
-        us = []
-        for i in unique_status:
-            us.extend(list(i))
-        context = super().get_context_data(**kwargs)
-        context['query'] = self.request.GET.get('q')
-        context['unique_status'] = us
-        return context
-
-
-class SearchProductsView(ListView, CategoryContextMixin, StatusContextMixin):
+class SearchFilterProductsView(ListView, CategoryContextMixin, StatusContextMixin):
     model = Product
     paginate_by = 10
     context_object_name = 'products'
@@ -176,13 +116,78 @@ class SearchProductsView(ListView, CategoryContextMixin, StatusContextMixin):
     template_name = 'core_app/product_search_result.html'
 
     def get_queryset(self):
-        queryset = Product.objects.filter(
-            Q(product_index__icontains=self.request.GET.get('q')) |
-            Q(product_code__icontains=self.request.GET.get('q')) |
-            Q(product_eancode__icontains=self.request.GET.get('q')))
+        sphrase = self.request.GET.get('sphrase')
+        status = self.request.GET.get('status')
+        category = self.request.GET.get('category')
+        if (sphrase == '') and (status != 'all') and (category == 'all'):
+            queryset = Product.objects.filter(product_status__icontains=status)
+            return queryset
+        elif (sphrase == '') and (status == 'all') and (category != 'all'):
+            queryset = Product.objects.filter(product_category=Category.objects.get(category_short_name=category).id)
+            return queryset
+        elif (sphrase == '') and (status != 'all') and (category != 'all'):
+            queryset = Product.objects.filter(
+                Q(product_status__icontains=status),
+                Q(product_category=Category.objects.get(category_short_name=category).id))
+            return queryset
+        elif (sphrase != '') and (status == 'all') and (category == 'all'):
+            queryset = Product.objects.filter(
+                Q(product_index__icontains=sphrase) |
+                Q(product_code__icontains=sphrase) |
+                Q(product_eancode__icontains=sphrase))
+            return queryset
+        elif (sphrase != '') and (status != 'all') and (category == 'all'):
+            queryset = Product.objects.filter(
+                Q(product_index__icontains=sphrase) |
+                Q(product_code__icontains=sphrase) |
+                Q(product_eancode__icontains=sphrase),
+                Q(product_status__icontains=status))
+            return queryset
+        elif (sphrase != '') and (status == 'all') and (category != 'all'):
+            queryset = Product.objects.filter(
+                Q(product_index__icontains=sphrase) |
+                Q(product_code__icontains=sphrase) |
+                Q(product_eancode__icontains=sphrase),
+                Q(product_category=Category.objects.get(category_short_name=category).id))
+            return queryset
+        elif (sphrase != '') and (status != 'all') and (category != 'all'):
+            queryset = Product.objects.filter(
+                Q(product_index__icontains=sphrase) |
+                Q(product_code__icontains=sphrase) |
+                Q(product_eancode__icontains=sphrase),
+                Q(product_status__icontains=status),
+                Q(product_category=Category.objects.get(category_short_name=category).id))
+            return queryset
+        else:
+            queryset = Product.objects.all()
+            return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['sphrase'] = self.request.GET.get('sphrase')
+        context['status'] = self.request.GET.get('status')
+        context['category'] = self.request.GET.get('category')
+        return context
+
+
+class ProductUrlFieldFill(LoginRequiredMixin, ListView):
+    form_class = ProductSiteUrl
+    model = Product
+    context_object_name = 'products'
+    success_url = reverse_lazy('core_app:product_list')
+    template_name = 'core_app/product_site_url_filling.html'
+
+    def get_queryset(self):
+        queryset = Product.objects.all()
+        for item in queryset.iterator():
+            code = item.product_code
+            category = item.product_category.category_short_name
+            url = Product.get_site_url(code, category)
+            item.product_site_url = url
+            item.save()
+            print(item.product_code, item.product_site_url)
         return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['query'] = self.request.GET.get('q')
         return context

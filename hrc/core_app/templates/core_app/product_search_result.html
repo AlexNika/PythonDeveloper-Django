@@ -1,18 +1,21 @@
 {% extends "base.html" %}
 {% load static %}
 {% block title %}
-    Найдено по запрсу "{{ query }}"
+    HCL | Страница результатов поиска
 {% endblock %}
 {% block content %}
     <link href="{% static 'assets/css/fresh-bootstrap-table.css' %}" rel="stylesheet"/>
+    {% include "core_app/search.html" %}
         <div class="fresh-table full-color-transparent">
-            <h4 class="section-title-center">Найдено по запросу "{{ query }}"</h4>
+            <h4 class="section-title-center">
+                Найдено по запросу "{{ sphrase }}" / Статус = {{ status }} / Категория = {{ category }}
+            </h4>
             <table id="fresh-table" class="table">
                 <thead>
-                    <th data-field="product_index">Index</th>
-                    <th data-field="product_code">Hansa code</th>
-                    <th data-field="product_description">Description</th>
-                    <th data-field="product_status">Status</th>
+                    <th data-field="product_code">Hansa код</th>
+                    <th data-field="product_description">Описание</th>
+                    <th data-field="product_status">Статус</th>
+                    <th data-field="product_operations">Операции</th>
                 </thead>
                 <tbody>
                 {% for item in products %}
@@ -42,22 +45,25 @@
     <div class="space-30"></div>
     <div class="pagination pull-left">
         {% if page_obj.has_previous %}
-            <a class="apagination" href="?page=1&q={{ query }}">
+            <a class="apagination" href="?page=1&sphrase={{ sphrase }}&status={{ status }}&category={{ category }}">
                 <i class="fa fa-backward" aria-hidden="true"></i>
             </a>
-            <a class="apagination" href="?page={{ page_obj.previous_page_number }}&q={{ query }}">
-                <i class="fa fa-play fa-playback" aria-hidden="true"></i>
+            <a class="apagination"
+               href="?page={{ page_obj.previous_page_number }}&sphrase={{ sphrase }}&status={{ status }}&category={{ category }}">
+            <i class="fa fa-play fa-playback" aria-hidden="true"></i>
             </a>
         {% endif %}
         <span class="current">
             Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}
         </span>
         {% if page_obj.has_next %}
-            <a class="apagination" href="?page={{ page_obj.next_page_number }}&q={{ query }}">
-                <i class="fa fa-play" aria-hidden="true"></i>
+            <a class="apagination"
+               href="?page={{ page_obj.next_page_number }}&sphrase={{ sphrase }}&status={{ status }}&category={{ category }}">
+            <i class="fa fa-play" aria-hidden="true"></i>
             </a>
-            <a class="apagination" href="?page={{ page_obj.paginator.num_pages }}&q={{ query }}">
-                <i class="fa fa-forward" aria-hidden="true"></i>
+            <a class="apagination"
+               href="?page={{ page_obj.paginator.num_pages }}&sphrase={{ sphrase }}&status={{ status }}&category={{ category }}">
+            <i class="fa fa-forward" aria-hidden="true"></i>
             </a>
         {% endif %}
     </div>

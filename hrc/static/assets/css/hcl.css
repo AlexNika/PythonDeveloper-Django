@@ -1,3 +1,8 @@
+body {
+    font-family: sans-serif;
+    background-color: #323B55;
+}
+
 .pagination {
 	border: 1px solid transparent;
     border-radius: 4px;
@@ -21,21 +26,6 @@
     vertical-align: middle;
 }
 
-/* .fresh-table a {
-    color: #FFFFFF;
-    text-decoration: none !important;
-}
-
-.code {
-	color: #FFFFFF;
-    text-decoration: underline !important;
-}
-
-.change {
-	color: #FFFFFF !important;
-	text-decoration: none !important;
-}
- */
 
 .current {
 	padding-left: 5px;
@@ -60,17 +50,25 @@
 }
 
 .form-search {
-    max-width: 400px;
-    padding: 0 15px;
+    /* max-width: 400px; */
+    /* padding: 0 15px; */
 	margin-right: auto;
 	margin-left: auto;
     position: relative;
 }
 
+.row {
+    margin: auto !important;
+	max-width: 600px;
+    display: flex !important;
+    position: relative !important;
+}
+
+
 .form-search .form-control-search {
     background-color: #FFFFFF;
     border: medium none;
-    border-radius: 30px;
+    border-radius: 4px;
     box-shadow: 0 0 0;
     color: #000000;
     display: inline-block;
@@ -90,9 +88,13 @@
 }
 
 .btn-search {
+    border-radius: 4px !important;
     background-color: #FFFFFF;
+    border: medium none;
     font-weight: 400;
     opacity: 1;
+    height: 40px;
+    margin-left: 5px;
     padding: 8px 16px;
     color: #000000;
 }
@@ -121,4 +123,162 @@
 	border-color: #FF3B30 !important;
 	border-radius: 4px !important;
 	border-width: 2px !important;
+}
+
+.login-page, .register-page {
+    height: auto !important;
+	min-height: 100% !important;
+    background: #d2d6de;
+    font-family: 'Source Sans Pro','Helvetica Neue',Helvetica,Arial,sans-serif;
+}
+
+.login-logo, .register-logo {
+    font-size: 25px;
+    text-align: center;
+    margin-bottom: 25px;
+    font-weight: 300;
+	color: cornflowerblue;
+}
+
+.login-box, .register-box {
+    width: 360px;
+    margin: 7% auto;
+}
+
+.login-box-body, .register-box-body {
+    background: #fff;
+    padding: 20px;
+    border-top: 0;
+    color: #666;
+}
+
+.login-box-msg, .register-box-msg {
+    margin: 0;
+	font-size: 18px;
+    text-align: center;
+    padding: 0 20px 5px 20px;
+}
+
+.has-feedback {
+	margin-bottom: 15px !important;
+    position: relative;
+}
+
+.container {
+	position:relative !important;
+}
+
+label {
+	margin-bottom: 0px !important;
+    margin-left: 5px !important;
+ 
+}
+
+/* ********************* */
+#slick-login {
+	width: 220px;
+	height: 155px;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	margin-left: -110px;
+	margin-top: 75px;
+
+	-webkit-animation: login 1s ease-in-out;
+	-moz-animation: login 1s ease-in-out;
+	-ms-animation: login 1s ease-in-out;
+	-o-animation: login 1s ease-in-out;
+	animation: login 1s ease-in-out;
+}
+
+
+#slick-login input[type="text"],#slick-login input[type="password"] {
+	height: 40px;
+	margin-top: 7px;
+	font-size: 16px;
+	outline: none;
+	border: 1px solid rgba(0, 0, 0, .49);
+	padding-left: 20px;
+	background-clip: padding-box;
+	border-radius: 4px;
+	box-shadow: inset 0px 2px 0px #d9d9d9;
+	transition: all .1s ease-in-out;
+}
+
+#slick-login input[type="text"]:focus,#slick-login input[type="password"]:focus {
+	-webkit-box-shadow: inset 0px 2px 0px #a7a7a7;
+	box-shadow: inset 0px 2px 0px #a7a7a7;
+}
+
+#slick-login input:first-child {
+	margin-top: 0px;
+}
+
+#slick-login input[type="submit"] {
+	width: 100%;
+	height: 40px;
+	margin-top: 7px;
+	color: #FFFFFF;
+	font-size: 18px;
+	font-weight: bold;
+	text-shadow: 0px -1px 0px #5b6ddc;
+	outline: none;
+	border: 1px solid rgba(0, 0, 0, .49);
+
+	-webkit-background-clip: padding-box;
+	-moz-background-clip: padding-box;
+	background-clip: padding-box;
+	border-radius: 4px;
+
+	background-color: cornflowerblue;
+	background-image: -webkit-linear-gradient(bottom, cornflowerblue 0%, #768ee4 100%);
+	background-image: -moz-linear-gradient(bottom, cornflowerblue 0%, #768ee4 100%);
+	background-image: -o-linear-gradient(bottom, cornflowerblue 0%, #768ee4 100%);
+	background-image: -ms-linear-gradient(bottom, cornflowerblue 0%, #768ee4 100%);
+	background-image: linear-gradient(bottom, cornflowerblue 0%, #768ee4 100%);
+	
+	-webkit-box-shadow: inset 0px 1px 0px #9ab1ec;
+	box-shadow: inset 0px 1px 0px #9ab1ec;
+	
+	cursor: pointer;
+
+	-webkit-transition: all .1s ease-in-out;
+	-moz-transition: all .1s ease-in-out;
+	-o-transition: all .1s ease-in-out;
+	-ms-transition: all .1s ease-in-out;
+	transition: all .1s ease-in-out;
+}
+
+#slick-login input[type="submit"]:hover {
+	background-color: #5f73e9;
+	background-image: -webkit-linear-gradient(bottom, #5f73e9 0%, #859bef 100%);
+	background-image: -moz-linear-gradient(bottom, #5f73e9 0%, #859bef 100%);
+	background-image: -o-linear-gradient(bottom, #5f73e9 0%, #859bef 100%);
+	background-image: -ms-linear-gradient(bottom, #5f73e9 0%, #859bef 100%);
+	background-image: linear-gradient(bottom, #5f73e9 0%, #859bef 100%);
+
+	-webkit-box-shadow: inset 0px 1px 0px #aab9f4;
+	box-shadow: inset 0px 1px 0px #aab9f4;
+	margin-top: 10px;
+}
+
+#slick-login input[type="submit"]:active {
+	background-color: #7588e1;
+	background-image: -webkit-linear-gradient(bottom, #7588e1 0%, #7184df 100%);
+	background-image: -moz-linear-gradient(bottom, #7588e1 0%, #7184df 100%);
+	background-image: -o-linear-gradient(bottom, #7588e1 0%, #7184df 100%);
+	background-image: -ms-linear-gradient(bottom, #7588e1 0%, #7184df 100%);
+	background-image: linear-gradient(bottom, #7588e1 0%, #7184df 100%);
+
+	-webkit-box-shadow: inset 0px 1px 0px #93a9e9;
+	box-shadow: inset 0px 1px 0px #93a9e9;
+}
+
+.btn-register {
+	margin-top: 7px;
+    margin-right: 4px;
+}
+
+li {
+  display: inline-block;
 }

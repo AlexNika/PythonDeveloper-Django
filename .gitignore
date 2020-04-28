@@ -19,3 +19,4 @@ hrc/folder_parser_app/migrations/__pycache__/
 hrc/hrc/__pycache__/
 hrc/site_parser_app/__pycache__/
 hrc/site_parser_app/migrations/__pycache__/
+/hrc/databasedump.json

@@ -1,18 +1,19 @@
 {% extends "base.html" %}
 {% load static %}
 {% block title %}
-    Список товаров
+    Hansa Content Library
 {% endblock %}
 {% block content %}
     <link href="{% static 'assets/css/fresh-bootstrap-table.css' %}" rel="stylesheet"/>
+    {% include "core_app/search.html" %}
         <div class="fresh-table full-color-transparent">
             <h4 class="section-title-center">Список моделей</h4>
             <table id="fresh-table" class="table">
                 <thead>
-                    <th data-field="product_index">Hansa код</th>
-                    <th data-field="product_code">Описание</th>
-                    <th data-field="product_description">Статус</th>
-                    <th data-field="product_status">Операции</th>
+                    <th data-field="product_code">Hansa код</th>
+                    <th data-field="product_description">Описание</th>
+                    <th data-field="product_status">Статус</th>
+                    <th data-field="product_operations">Операции</th>
                 </thead>
                 <tbody>
                 {% for item in products %}
@@ -37,6 +38,8 @@
                             </a>
                         </td>
                     </tr>
+                    {% empty %}
+                        <p>Sorry!!!</p>
                 {% endfor %}
                 </tbody>
             </table>
