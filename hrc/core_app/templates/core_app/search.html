@@ -1,0 +1,25 @@
+<form action="{% url 'core_app:product_search' %}" method="get" class="row">
+    <label>
+        <input type="search" name="sphrase" class="form-control" placeholder="Поиск...">
+    </label>
+    <label>
+        <select name="status" class="form-control">
+            <option value="all">Все статусы</option>
+            {% for status in unique_status %}
+                <option value="{{ status }}">{{ status }}</option>
+            {% endfor %}
+        </select>
+    </label>
+    <label>
+        <select name="category" class="form-control">
+            <option value="all">Все категории</option>
+            {% for category in categories %}
+                <option value="{{ category.category_short_name }}">{{ category.category_short_name }}</option>
+            {% endfor %}
+        </select>
+    </label>
+    <button type="submit" class="btn-search btn-tooltip" data-toggle="tooltip"
+            data-placement="top" title="Поиск возможен по Hansa code, Index и EAN code">
+        <i class="fa fa-search" aria-hidden="True"></i>
+    </button>
+</form>

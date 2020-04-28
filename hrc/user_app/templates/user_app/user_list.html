@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+    HCL | Пользователи
+{% endblock %}
+{% block content %}
+    <link href="{% static 'assets/css/fresh-bootstrap-table.css' %}" rel="stylesheet"/>
+        <div class="fresh-table full-color-transparent">
+            <h4 class="section-title-center">Список пользователей Hansa Content Library</h4>
+            <table id="fresh-table" class="table">
+                <thead>
+                    <th data-field="username">Username</th>
+                    <th data-field="email">Email</th>
+                    <th data-field="is_active">Статус Is_active</th>
+                    <th data-field="is_manager">Статус Is_manager</th>
+                    <th data-field="last_login">Последний вход</th>
+                </thead>
+                <tbody>
+                {% for item in users %}
+                    <tr>
+                        <td>
+                            <a class="code" href="{{ item.get_absolute_url }}">
+                                {{ item.username }}
+                            </a>
+                        </td>
+                        <td>{{ item.email }}</td>
+                        <td>{{ item.is_active }}</td>
+                        <td>{{ item.is_manager }}</td>
+                        <td>{{ item.last_login }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    <div class="space-30"></div>
+    <div class="pagination pull-left">
+        {% if page_obj.has_previous %}
+            <a class="apagination" href="?page=1">
+                <i class="fa fa-backward" aria-hidden="true"></i>
+            </a>
+            <a class="apagination" href="?page={{ page_obj.previous_page_number }}">
+                <i class="fa fa-play fa-playback" aria-hidden="true"></i>
+            </a>
+        {% endif %}
+        <span class="current">
+            Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}
+        </span>
+        {% if page_obj.has_next %}
+            <a class="apagination" href="?page={{ page_obj.next_page_number }}">
+                <i class="fa fa-play" aria-hidden="true"></i>
+            </a>
+            <a class="apagination" href="?page={{ page_obj.paginator.num_pages }}">
+                <i class="fa fa-forward" aria-hidden="true"></i>
+            </a>
+        {% endif %}
+    </div>
+    <div class="submit pull-right">
+        <a href="{% url 'user_app:registration' %}" class="btn btn-danger btn-fill pull-right" rel="stylesheet">
+            Зарегистрировать пользователя
+        </a>
+    </div>
+{% endblock %}

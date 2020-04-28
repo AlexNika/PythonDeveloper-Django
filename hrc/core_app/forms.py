@@ -1,11 +1,30 @@
 from django import forms
+from django.conf import settings
+from django.core.mail import send_mail
+
 from .models import Category, Product
 
 
-class ContactForm(forms.Form):
+class FeedbackForm(forms.Form):
     name = forms.CharField(required=True, label='Ваше имя')
     email = forms.EmailField(required=True, label='E-mail адрес')
     message = forms.CharField(required=True, widget=forms.Textarea, label='Ваше сообщение')
+    firstname = forms.CharField(required=False)
+    lastname = forms.CharField(required=False)
+
+    def send_email(self):
+        name = self.cleaned_data['name']
+        email = self.cleaned_data['email']
+        message = self.cleaned_data['message']
+        firstname = self.cleaned_data['firstname']
+        lastname = self.cleaned_data['lastname']
+        if firstname or lastname:
+            # попытка спама
+            pass
+        else:
+            subject = f'Сообщение с портара Hansa Content Library от {name}'
+            send_mail(subject=subject, message=message, from_email=settings.DEFAULT_FROM_EMAIL, recipient_list=[email],
+                      fail_silently=True)
 
 
 class CategoryForm(forms.ModelForm):
@@ -22,7 +41,7 @@ class CategoryForm(forms.ModelForm):
 
     class Meta:
         model = Category
-        fields = '__all__'
+        exclude = ['user']
 
 
 class ProductForm(forms.ModelForm):
@@ -36,18 +55,13 @@ class ProductForm(forms.ModelForm):
                                       widget=forms.TextInput(attrs={'placeholder': 'Например: 5906006542900',
                                                                     'class': 'form-control'}))
 
-    # product_category = forms.ModelChoiceField(queryset=Category.objects.filter(category_short_name__exact='CBI'))
+    class Meta:
+        model = Product
+        exclude = ['user']
+
+
+class ProductSiteUrl(forms.ModelForm):
 
     class Meta:
         model = Product
-        fields = '__all__'
-
-
-class ProductFilter(forms.ModelForm):
-
-    product_status = forms.ModelMultipleChoiceField(queryset=Product.objects.all(),
-                                                    widget=forms.CheckboxSelectMultiple())
-
-    class Meta:
-        model = Product
-        fields = ('product_status', )
+        fields = ['product_code', 'product_site_url']

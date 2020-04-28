@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+    HCL | Пользователь - {{ user.username }}
+{% endblock %}
+{% block content %}
+    <link href="{% static 'assets/css/fresh-bootstrap-table.css' %}" rel="stylesheet"/>
+    <div class="contact-us">
+        <div class="fresh-table full-color-transparent">
+            <h4 class="section-title-center">Пользователь - {{ user.username }}</h4>
+            <table id="fresh-table" class="table">
+                <tbody>
+                <tr>
+                    <td>
+                        Имя пользователя:
+                        <span class="pull-right text-muted">{{ user.username }}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        E-mail пользователя:
+                        <span class="pull-right text-muted">{{ user.email }}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Статус Is_active:
+                        <span class="pull-right text-muted">{{ user.is_active }}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Статус Is_manager:
+                        <span class="pull-right text-muted">{{ user.is_manager }}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Последний вход:
+                        <span class="pull-right text-muted">{{ user.last_login }}</span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

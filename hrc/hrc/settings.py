@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'core_app',
     'file_parser_app',
+    'user_app'
 ]
 
 MIDDLEWARE = [
@@ -79,6 +80,13 @@ DATABASES = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
+    # 'default': {
+    #     'NAME': 'hcldb',
+    #     'ENGINE': 'django.db.backends.postgresql',
+    #     'USER': 'hcldb_user',
+    #     'PASSWORD': 'yCrE7pDAQh2FPeZsodM45c1o',
+    #     'HOST': 'localhost'
+    # }
 }
 
 
@@ -129,7 +137,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # E-mail settings
 
-DEFAULT_FROM_EMAIL='someemail@gmail.com'
+DEFAULT_FROM_EMAIL = 'hcl@hansa.ru'
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'username'
@@ -138,3 +146,8 @@ EMAIL_PORT = 587
 
 if DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+AUTH_USER_MODEL = 'user_app.CoreUser'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+LOGIN_URL = '/login/'

@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}
+    HCL | Контакты
+{% endblock %}
+{% block content %}
+    <div class="contact-us">
+        <h4 class="section-title-center">Напишите нам</h4>
+        <p>
+            Вы можете связаться с нами по любым вопросам, касающимся портала рич-контента.<br>
+            Мы постараемся ответить вам ASAP.<br>
+        </p>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="name">Ваше имя</label>
+                <input type="text" name="name" class="form-control" id="name"
+                       placeholder="Ваше имя и фамилия"/>
+            </div>
+            <div class="form-group">
+                <label for="email">E-mail адрес</label>
+                <input type="email" name="email" class="form-control" id="email"
+                       placeholder="Ваш e-mail адрес"/>
+            </div>
+            <div class="form-group">
+                <label for="message">Ваше сообщение</label>
+                <textarea name="message" class="form-control" id="message" rows="6"></textarea>
+            </div>
+            <div class="form-group">
+                <label style="display: none;">
+                    <input type="text" name="firstname" style="position: absolute; left: -9998px; display: none;"/>
+                </label>
+            </div>
+            <div class="form-group">
+                <label style="display: none;">
+                    <input type="text" name="lastname" style="position: absolute; left: -9999px; display: none;"/>
+                </label>
+            </div>
+            <div class="space-30"></div>
+            <div class="submit pull-right">
+                <input type="submit" class="btn btn-danger btn-fill" value="Связаться с нами"/>
+                <div class="space-30"></div>
+            </div>
+        </form>
+    </div>
+{% endblock %}
