@@ -48,6 +48,12 @@
                 </tr>
                 <tr>
                     <td>
+                        Маркетинговое описание:
+                        <span class="pull-right text-muted">{{ product.marketing_description }}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
                         URL на сайте HANSA:
                         <span class="pull-right text-muted">
                             {% if product.product_site_url %}
@@ -62,8 +68,15 @@
                 </tr>
                 <tr>
                     <td>
+                        Local server PATH в Hansa content library:
+                        <span class="pull-right text-muted">{{ product.product_internal_path }}</span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
                         FTP URL в Hansa content library:
-                        <span class="pull-right text-muted">{{ product.product_ftp_url }}</span>
+                        <span class="pull-right text-muted">{{ product.product_external_url }}</span>
                     </td>
                 </tr>
                 </tbody>

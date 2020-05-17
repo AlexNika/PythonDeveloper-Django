@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+    HCL | Заполнение категорий данными
+{% endblock %}
+{% block content %}
+    <link href="{% static 'assets/css/fresh-bootstrap-table.css' %}" rel="stylesheet"/>
+    <div class="submit pull-right">
+        <a href="{% url 'core_app:category_url_filling' %}" class="btn btn-danger btn-fill pull-right" rel="stylesheet">
+            Заполнить ссылки на сайт
+        </a>
+    </div>
+        <div class="fresh-table full-color-transparent">
+            <h4 class="section-title-center">Заполнение категорий данными (URL на сайте HANSA)</h4>
+            <table id="fresh-table" class="table">
+                <thead>
+                    <th data-field="category_short_name">Короткое название категории</th>
+                    <th data-field="category_name">Название категории</th>
+                    <th data-field="category_site_url">URL на сайте HANSA.RU</th>
+                </thead>
+                <tbody>
+                {% for item in categories%}
+                    <tr>
+                        <td>{{ item.category_short_name }}</td>
+                        <td>{{ item.category_name }}</td>
+                        <td>{{ item.category_site_url }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+{% endblock %}

@@ -14,6 +14,7 @@
                 <thead>
                     <th data-field="product_code">Hansa код</th>
                     <th data-field="product_description">Описание</th>
+                    <th data-field="product_status">Сайт URL</th>
                     <th data-field="product_status">Статус</th>
                     <th data-field="product_operations">Операции</th>
                 </thead>
@@ -26,6 +27,17 @@
                             </a>
                         </td>
                         <td>{{ item.product_description }}</td>
+                        {% if item.product_site_url %}
+                            <td>
+                                <a class="code" href="{{ item.product_site_url }}" target="_blank">
+                                    <i class="fa fa-link" aria-hidden="true"></i>
+                                </a>
+                            </td>
+                        {% else %}
+                            <td>
+                                <i class="fa fa-chain-broken" aria-hidden="true"></i>
+                            </td>
+                        {% endif %}
                         <td>{{ item.product_status }}</td>
                         <td>
                             <a rel="tooltip" title="Изменить" class="change table-action edit"

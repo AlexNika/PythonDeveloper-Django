@@ -4,7 +4,7 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, FormView
 from django.views.generic.base import ContextMixin
 
-from .forms import FeedbackForm, CategoryForm, ProductForm, ProductSiteUrl
+from .forms import FeedbackForm, CategoryForm, ProductForm, ProductSiteUrl, CategorySiteUrl
 from .models import Category, Product
 
 
@@ -28,7 +28,7 @@ class StatusContextMixin(ContextMixin):
         return context
 
 
-class FeedbackView(FormView, CategoryContextMixin, StatusContextMixin):
+class FeedbackView(FormView):
     template_name = 'core_app/feedback.html'
     form_class = FeedbackForm
     success_url = reverse_lazy('core_app:product_list')
@@ -38,17 +38,18 @@ class FeedbackView(FormView, CategoryContextMixin, StatusContextMixin):
         return super(FeedbackView, self).form_valid(form)
 
 
-class CategoryListView(ListView, CategoryContextMixin, StatusContextMixin):
+class CategoryListView(ListView, CategoryContextMixin):
     model = Category
     template_name = 'core_app/category_list.html'
 
 
-class CategoryDetailView(DetailView, CategoryContextMixin, StatusContextMixin):
+class CategoryDetailView(DetailView, CategoryContextMixin):
     model = Category
+    slug_field = 'category_short_name'
     template_name = 'core_app/category_detail.html'
 
 
-class CategoryCreateView(LoginRequiredMixin, CreateView, CategoryContextMixin, StatusContextMixin):
+class CategoryCreateView(LoginRequiredMixin, CreateView, CategoryContextMixin):
     form_class = CategoryForm
     model = Category
     success_url = reverse_lazy('core_app:category_list')
@@ -59,14 +60,15 @@ class CategoryCreateView(LoginRequiredMixin, CreateView, CategoryContextMixin, S
         return super(CategoryCreateView, self).form_valid(form)
 
 
-class CategoryUpdateView(LoginRequiredMixin, UpdateView, CategoryContextMixin, StatusContextMixin):
+class CategoryUpdateView(LoginRequiredMixin, UpdateView, CategoryContextMixin):
     form_class = CategoryForm
     model = Category
+    slug_field = 'category_short_name'
     success_url = reverse_lazy('core_app:category_list')
     template_name = 'core_app/category_update.html'
 
 
-class CategoryDeleteView(LoginRequiredMixin, DeleteView, CategoryContextMixin, StatusContextMixin):
+class CategoryDeleteView(LoginRequiredMixin, DeleteView, CategoryContextMixin):
     model = Category
     success_url = reverse_lazy('core_app:category_list')
     template_name = 'core_app/category_delete_confirm.html'
@@ -182,7 +184,7 @@ class ProductUrlFieldFill(LoginRequiredMixin, ListView):
         for item in queryset.iterator():
             code = item.product_code
             category = item.product_category.category_short_name
-            url = Product.get_site_url(code, category)
+            url = Product.get_product_site_url(code, category)
             item.product_site_url = url
             item.save()
             print(item.product_code, item.product_site_url)
@@ -191,3 +193,21 @@ class ProductUrlFieldFill(LoginRequiredMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         return context
+
+
+class CategoryUrlFieldFill(LoginRequiredMixin, ListView):
+    form_class = CategorySiteUrl
+    model = Category
+    context_object_name = 'categories'
+    success_url = reverse_lazy('core_app:category_list')
+    template_name = 'core_app/category_site_url_filling.html'
+
+    def get_queryset(self):
+        queryset = Category.objects.all()
+        for item in queryset.iterator():
+            category = item.category_short_name
+            url = Category.get_category_site_url(category)
+            item.category_site_url = url
+            item.save()
+            print(item.category_short_name, item.category_site_url)
+        return queryset

@@ -4,10 +4,9 @@
     HCL | Вход
 {% endblock %}
 {% block content %}
-<form id="slick-login" method="post">
-    {% csrf_token %}
-    <input type="text" name="username">
-    <input type="password" name="password">
-    <button type="submit" class="btn btn-danger btn-fill btn-register pull-right">ВОЙТИ</button>
-</form>
+    <form id="slick-login" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-danger btn-fill btn-register pull-right">ВОЙТИ</button>
+    </form>
 {% endblock %}
