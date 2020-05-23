@@ -282,3 +282,8 @@ label {
 li {
   display: inline-block;
 }
+
+.errorlist {
+	margin-left: inherit;
+	color:coral;
+}

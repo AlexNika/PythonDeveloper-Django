@@ -10,25 +10,39 @@
             <table id="fresh-table" class="table">
                 <thead>
                 <th data-field="category_short_name">Abbr</th>
-                <th data-field="category_name">Name</th>
-                <th data-field="category_description">Description</th>
+                <th data-field="category_name">Категория</th>
+                <th data-field="category_description">Описание</th>
+                <th data-field="category_site_url">Сайт URL</th>
+                <th data-field="product_operations">Операции</th>
                 </thead>
                 <tbody>
                 {% for item in object_list %}
                     <tr>
                         <td>
-                            <a href="{% url 'core_app:category_detail' pk=item.pk %}">
+                            <a href="{{ item.get_absolute_url }}">
                                 {{ item.category_short_name }}
                             </a>
                         </td>
                         <td>{{ item.category_name }}</td>
                         <td>{{ item.category_description }}</td>
+                        {% if item.category_site_url %}
+                            <td>
+                                <a class="code" href="{{ item.category_site_url }}" target="_blank">
+                                    <i class="fa fa-link" aria-hidden="true"></i>
+                                </a>
+                            </td>
+                        {% else %}
+                            <td>
+                                <i class="fa fa-chain-broken" aria-hidden="true"></i>
+                            </td>
+                        {% endif %}
                         <td>
                             <a rel="tooltip" title="Изменить" class="table-action edit"
-                               href="{% url 'core_app:category_update' pk=item.pk %}"><i class="fa fa-edit"></i>
+                               href="{% url 'core_app:category_update' slug=item.category_short_name %}">
+                                <i class="fa fa-edit"></i>
                             </a>
                             <a rel="tooltip" title="Удалить" class="table-action remove"
-                               href="{% url 'core_app:category_delete' pk=item.pk %}"><i class="fa fa-remove"></i>
+                               href="{{ category.get_absolute_url }}"><i class="fa fa-remove"></i>
                             </a>
                         </td>
                     </tr>

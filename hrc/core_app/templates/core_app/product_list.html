@@ -12,6 +12,7 @@
                 <thead>
                     <th data-field="product_code">Hansa код</th>
                     <th data-field="product_description">Описание</th>
+                    <th data-field="product_status">Сайт URL</th>
                     <th data-field="product_status">Статус</th>
                     <th data-field="product_operations">Операции</th>
                 </thead>
@@ -19,12 +20,22 @@
                 {% for item in products %}
                     <tr>
                         <td>
-{#                            <a class="code" href="{% url 'core_app:product_detail' pk=item.pk %}">#}
                             <a class="code" href="{{ item.get_absolute_url }}">
                                 {{ item.product_code }}
                             </a>
                         </td>
                         <td>{{ item.product_description }}</td>
+                        {% if item.product_site_url %}
+                            <td>
+                                <a class="code" href="{{ item.product_site_url }}" target="_blank">
+                                    <i class="fa fa-link" aria-hidden="true"></i>
+                                </a>
+                            </td>
+                        {% else %}
+                            <td>
+                                <i class="fa fa-chain-broken" aria-hidden="true"></i>
+                            </td>
+                        {% endif %}
                         <td>{{ item.product_status }}</td>
                         <td>
                             <a rel="tooltip" title="Изменить" class="change table-action edit"
@@ -32,7 +43,6 @@
                                 <i class="fa fa-edit"></i>
                             </a>
                             <a rel="tooltip" title="Удалить" class="table-action remove"
-{#                               href="{% url 'core_app:category_delete' pk=item.pk %}"><i class="fa fa-remove"></i>#}
                                href="{{ item.get_absolute_url }}">
                                 <i class="fa fa-remove"></i>
                             </a>

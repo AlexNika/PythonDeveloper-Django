@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'core_app',
     'file_parser_app',
-    'user_app'
+    'user_app',
+    'reversion',
 ]
 
 MIDDLEWARE = [

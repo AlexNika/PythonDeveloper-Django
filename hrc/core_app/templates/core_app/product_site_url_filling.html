@@ -6,12 +6,12 @@
 {% block content %}
     <link href="{% static 'assets/css/fresh-bootstrap-table.css' %}" rel="stylesheet"/>
     <div class="submit pull-right">
-        <a href="{% url 'core_app:product_filling' %}" class="btn btn-danger btn-fill pull-right" rel="stylesheet">
+        <a href="{% url 'core_app:product_url_filling' %}" class="btn btn-danger btn-fill pull-right" rel="stylesheet">
             Заполнить ссылки на сайт
         </a>
     </div>
         <div class="fresh-table full-color-transparent">
-            <h4 class="section-title-center">Заполнение продуктов данными</h4>
+            <h4 class="section-title-center">Заполнение продуктов данными (URL на сайте HANSA)</h4>
             <table id="fresh-table" class="table">
                 <thead>
                     <th data-field="product_code">Hansa код</th>

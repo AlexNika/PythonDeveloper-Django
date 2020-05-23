@@ -19,7 +19,7 @@ class FeedbackForm(forms.Form):
         firstname = self.cleaned_data['firstname']
         lastname = self.cleaned_data['lastname']
         if firstname or lastname:
-            # попытка спама
+            print('*** Spam send detected!!! ')
             pass
         else:
             subject = f'Сообщение с портара Hansa Content Library от {name}'
@@ -65,3 +65,10 @@ class ProductSiteUrl(forms.ModelForm):
     class Meta:
         model = Product
         fields = ['product_code', 'product_site_url']
+
+
+class CategorySiteUrl(forms.ModelForm):
+
+    class Meta:
+        model = Category
+        fields = ['category_short_name', 'category_name', 'category_site_url']

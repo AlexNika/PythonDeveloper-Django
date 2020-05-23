@@ -28,15 +28,30 @@
                         <span class="pull-right text-muted">{{ object.category_description }}</span>
                     </td>
                 </tr>
+                 <tr>
+                    <td>
+                        URL на сайте HANSA:
+                        <span class="pull-right text-muted">{{ object.category_site_url }}</span>
+                    </td>
+                </tr>
+                {% if object.has_image %}
+                <tr>
+                    <td>
+                         <img src="{{ category.category_image.url }}" width="300" alt="{{ object.category_name }}">
+                    </td>
+                </tr>
+                {% endif %}
                 </tbody>
             </table>
         </div>
         <div class="space-30"></div>
         <div class="submit">
-            <a href="{% url 'core_app:category_update' pk=object.pk %}" class="btn btn-danger btn-fill pull-left">
-                Изменить категорию
+            <a href="{% url 'core_app:category_update' slug=category.category_short_name %}"
+               class="btn btn-danger btn-fill pull-left">
+            Изменить категорию
             </a>
-            <a href="{% url 'core_app:category_delete' pk=object.pk %}" class="btn btn-danger btn-fill pull-right">
+{#            <a href="{% url 'core_app:category_delete' pk=object.pk %}" class="btn btn-danger btn-fill pull-right">#}
+            <a href="{{ category.get_absolute_url }}" class="btn btn-danger btn-fill pull-right">
                 Удалить категорию
             </a>
         </div>
