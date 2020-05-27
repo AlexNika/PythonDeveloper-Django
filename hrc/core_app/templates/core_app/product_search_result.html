@@ -12,6 +12,7 @@
             </h4>
             <table id="fresh-table" class="table">
                 <thead>
+                    <th data-field="product_status">Категория</th>
                     <th data-field="product_code">Hansa код</th>
                     <th data-field="product_description">Описание</th>
                     <th data-field="product_status">Сайт URL</th>
@@ -21,6 +22,9 @@
                 <tbody>
                 {% for item in products %}
                     <tr>
+                        <td>
+                            {{ item.product_category.category_short_name }}
+                        </td>
                         <td>
                             <a class="code" href="{{ item.get_absolute_url }}">
                                 {{ item.product_code }}

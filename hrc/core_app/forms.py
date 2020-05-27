@@ -43,6 +43,10 @@ class CategoryForm(forms.ModelForm):
         model = Category
         exclude = ['user']
 
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
 
 class ProductForm(forms.ModelForm):
     product_index = forms.CharField(label='Индекс модели',
@@ -58,6 +62,10 @@ class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
         exclude = ['user']
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
 
 
 class ProductSiteUrl(forms.ModelForm):

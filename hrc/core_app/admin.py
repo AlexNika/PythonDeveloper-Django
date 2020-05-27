@@ -11,11 +11,15 @@ class CategoryAdmin(VersionAdmin, admin.ModelAdmin):
 
     def set_active(self, request, queryset):
         queryset.update(is_active=True)
-    set_active.short_description = 'Mark selected products as active'
+    set_active.short_description = 'Mark selected categories as active'
 
     def set_inactive(self, request, queryset):
         queryset.update(is_active=False)
-    set_inactive.short_description = 'Mark selected products as inactive'
+    set_inactive.short_description = 'Mark selected categories as inactive'
+
+    def save_model(self, request, obj, form, change):
+        obj.user = request.user
+        super(CategoryAdmin, self).save_model(request, obj, form, change)
 
 
 class ProductAdmin(VersionAdmin, admin.ModelAdmin):
@@ -36,6 +40,10 @@ class ProductAdmin(VersionAdmin, admin.ModelAdmin):
     def set_inactive(self, request, queryset):
         queryset.update(is_active=False)
     set_inactive.short_description = 'Mark selected products as inactive'
+
+    def save_model(self, request, obj, form, change):
+        obj.user = request.user
+        super(ProductAdmin, self).save_model(request, obj, form, change)
 
 
 class HCLAdminSite(AdminSite):

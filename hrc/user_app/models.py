@@ -2,6 +2,7 @@ import os
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.urls import reverse
+from django.utils.functional import cached_property
 
 
 def get_user_auth():
@@ -19,3 +20,4 @@ class CoreUser(AbstractUser):
 
     def get_absolute_url(self):
         return reverse("user_app:user_detail", kwargs={"slug": self.id})
+
