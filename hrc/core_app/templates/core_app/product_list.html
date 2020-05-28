@@ -10,15 +10,19 @@
             <h4 class="section-title-center">Список моделей</h4>
             <table id="fresh-table" class="table">
                 <thead>
+                    <th data-field="product_status">Категория</th>
                     <th data-field="product_code">Hansa код</th>
                     <th data-field="product_description">Описание</th>
-                    <th data-field="product_status">Сайт URL</th>
+                    <th data-field="product_site_url">Сайт URL</th>
                     <th data-field="product_status">Статус</th>
                     <th data-field="product_operations">Операции</th>
                 </thead>
                 <tbody>
                 {% for item in products %}
                     <tr>
+                        <td>
+                            {{ item.product_category.category_short_name }}
+                        </td>
                         <td>
                             <a class="code" href="{{ item.get_absolute_url }}">
                                 {{ item.product_code }}

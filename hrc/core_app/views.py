@@ -12,7 +12,7 @@ class CategoryContextMixin(ContextMixin):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['categories'] = Category.objects.all()
+        context['categories'] = Category.objects.select_related().all()
         return context
 
 
@@ -39,12 +39,12 @@ class FeedbackView(FormView):
 
 
 class CategoryListView(ListView, CategoryContextMixin):
-    model = Category
+    queryset = Category.objects.select_related()
     template_name = 'core_app/category_list.html'
 
 
 class CategoryDetailView(DetailView, CategoryContextMixin):
-    model = Category
+    queryset = Category.objects.select_related()
     slug_field = 'category_short_name'
     template_name = 'core_app/category_detail.html'
 
@@ -62,7 +62,7 @@ class CategoryCreateView(LoginRequiredMixin, CreateView, CategoryContextMixin):
 
 class CategoryUpdateView(LoginRequiredMixin, UpdateView, CategoryContextMixin):
     form_class = CategoryForm
-    model = Category
+    queryset = Category.objects.select_related()
     slug_field = 'category_short_name'
     success_url = reverse_lazy('core_app:category_list')
     template_name = 'core_app/category_update.html'
@@ -75,15 +75,15 @@ class CategoryDeleteView(LoginRequiredMixin, DeleteView, CategoryContextMixin):
 
 
 class ProductListView(ListView, CategoryContextMixin, StatusContextMixin):
-    model = Product
-    paginate_by = 10
+    queryset = Product.objects.select_related()
+    paginate_by = 15
     context_object_name = 'products'
     form = ProductForm
     template_name = 'core_app/product_list.html'
 
 
 class ProductDetailView(DetailView, CategoryContextMixin, StatusContextMixin):
-    model = Product
+    queryset = Product.objects.select_related()
     context_object_name = 'product'
     slug_field = 'product_index'
     template_name = 'core_app/product_detail.html'
@@ -103,7 +103,6 @@ class ProductCreateView(LoginRequiredMixin, CreateView, CategoryContextMixin, St
 class ProductUpdateView(LoginRequiredMixin, UpdateView, CategoryContextMixin, StatusContextMixin):
     form_class = ProductForm
     model = Product
-    paginate_by = 10
     context_object_name = 'product'
     success_url = reverse_lazy('core_app:product_list')
     slug_field = 'product_index'
@@ -112,7 +111,7 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView, CategoryContextMixin, St
 
 class SearchFilterProductsView(ListView, CategoryContextMixin, StatusContextMixin):
     model = Product
-    paginate_by = 10
+    paginate_by = 15
     context_object_name = 'products'
     slug_field = 'product_index'
     template_name = 'core_app/product_search_result.html'
@@ -122,38 +121,39 @@ class SearchFilterProductsView(ListView, CategoryContextMixin, StatusContextMixi
         status = self.request.GET.get('status')
         category = self.request.GET.get('category')
         if (sphrase == '') and (status != 'all') and (category == 'all'):
-            queryset = Product.objects.filter(product_status__icontains=status)
+            queryset = Product.objects.select_related('product_category').filter(product_status__icontains=status)
             return queryset
         elif (sphrase == '') and (status == 'all') and (category != 'all'):
-            queryset = Product.objects.filter(product_category=Category.objects.get(category_short_name=category).id)
+            queryset = Product.objects.select_related('product_category').filter(
+                product_category=Category.objects.get(category_short_name=category).id)
             return queryset
         elif (sphrase == '') and (status != 'all') and (category != 'all'):
-            queryset = Product.objects.filter(
+            queryset = Product.objects.select_related('product_category').filter(
                 Q(product_status__icontains=status),
                 Q(product_category=Category.objects.get(category_short_name=category).id))
             return queryset
         elif (sphrase != '') and (status == 'all') and (category == 'all'):
-            queryset = Product.objects.filter(
+            queryset = Product.objects.select_related('product_category').filter(
                 Q(product_index__icontains=sphrase) |
                 Q(product_code__icontains=sphrase) |
                 Q(product_eancode__icontains=sphrase))
             return queryset
         elif (sphrase != '') and (status != 'all') and (category == 'all'):
-            queryset = Product.objects.filter(
+            queryset = Product.objects.select_related('product_category').filter(
                 Q(product_index__icontains=sphrase) |
                 Q(product_code__icontains=sphrase) |
                 Q(product_eancode__icontains=sphrase),
                 Q(product_status__icontains=status))
             return queryset
         elif (sphrase != '') and (status == 'all') and (category != 'all'):
-            queryset = Product.objects.filter(
+            queryset = Product.objects.select_related('product_category').filter(
                 Q(product_index__icontains=sphrase) |
                 Q(product_code__icontains=sphrase) |
                 Q(product_eancode__icontains=sphrase),
                 Q(product_category=Category.objects.get(category_short_name=category).id))
             return queryset
         elif (sphrase != '') and (status != 'all') and (category != 'all'):
-            queryset = Product.objects.filter(
+            queryset = Product.objects.select_related('product_category').filter(
                 Q(product_index__icontains=sphrase) |
                 Q(product_code__icontains=sphrase) |
                 Q(product_eancode__icontains=sphrase),
@@ -161,7 +161,7 @@ class SearchFilterProductsView(ListView, CategoryContextMixin, StatusContextMixi
                 Q(product_category=Category.objects.get(category_short_name=category).id))
             return queryset
         else:
-            queryset = Product.objects.all()
+            queryset = Product.objects.select_related('product_category').all()
             return queryset
 
     def get_context_data(self, **kwargs):

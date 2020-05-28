@@ -13,8 +13,7 @@ class TimeStamp(models.Model):
 class File(TimeStamp):
     file_name = models.FileField(upload_to='uploads/')
     file_description = models.CharField(max_length=256, blank=True, null=True)
-    su_pk = CoreUser.objects.filter(is_superuser=True)[0]
-    user = models.ForeignKey(CoreUser, default=su_pk.pk, on_delete=models.PROTECT)
+    user = models.ForeignKey(CoreUser, on_delete=models.PROTECT, blank=True, null=True)
 
     def __str__(self):
         return str(self.file_name)

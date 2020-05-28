@@ -1,9 +1,8 @@
-# -*- coding: utf-8 -*-
-
 import os
 import platform
 import subprocess
 import time
+from tqdm import tqdm
 
 import numpy as np
 import pandas as pd
@@ -11,6 +10,7 @@ import requests
 from django.db import models
 from django.db.models import Q
 from django.urls import reverse
+from django.db.utils import IntegrityError
 
 from user_app.models import CoreUser, get_user_auth
 from .constants import HEADER
@@ -52,12 +52,12 @@ class TimeStamp(models.Model):
 
 
 class Category(TimeStamp):
-    category_short_name = models.CharField(max_length=10, unique=True)
+    category_short_name = models.CharField(max_length=10, unique=True, db_index=True)
     category_name = models.CharField(max_length=64, unique=True)
     category_description = models.CharField(max_length=256, null=True, blank=True)
     category_site_url = models.URLField(max_length=128, blank=True, null=True)
     category_image = models.ImageField(upload_to='categories', blank=True, null=True)
-    user = models.ForeignKey(CoreUser, default=1, on_delete=models.PROTECT)
+    user = models.ForeignKey(CoreUser, on_delete=models.PROTECT, blank=True, null=True)
     is_active = models.BooleanField(default=False)
     objects = models.Manager()
 
@@ -86,9 +86,9 @@ class Category(TimeStamp):
 
 
 class Product(TimeStamp):
-    product_code = models.CharField(max_length=16, blank=True, null=True)
-    product_index = models.PositiveIntegerField(unique=True)
-    product_eancode = models.CharField(max_length=16, unique=True)
+    product_code = models.CharField(max_length=16, blank=True, null=True, db_index=True)
+    product_index = models.PositiveIntegerField(unique=True, db_index=True)
+    product_eancode = models.CharField(max_length=16, unique=True, db_index=True)
     active_Z1 = 'Z1'
     active_ZN = 'ZN'
     active_Z9 = 'Z9'
@@ -103,14 +103,14 @@ class Product(TimeStamp):
     ]
     product_status = models.CharField(max_length=5,
                                       choices=status_choices,
-                                      default=active_Z9, blank=True, null=True)
+                                      default=active_Z9, blank=True, null=True, db_index=True)
     product_description = models.CharField(max_length=128, blank=True, null=True)
     marketing_description = models.TextField(blank=True)
     product_site_url = models.URLField(max_length=128, blank=True, null=True)
     product_internal_path = models.URLField(max_length=128, blank=True, null=True)
     product_external_url = models.URLField(max_length=128, blank=True, null=True)
-    product_category = models.ForeignKey(Category, on_delete=models.PROTECT)
-    user = models.ForeignKey(CoreUser, default=1, on_delete=models.PROTECT)
+    product_category = models.ForeignKey(Category, on_delete=models.PROTECT, db_index=True)
+    user = models.ForeignKey(CoreUser, on_delete=models.PROTECT, blank=True, null=True)
     is_active = models.BooleanField(default=True)
     rc_complete = models.PositiveSmallIntegerField(default=0)
     objects = models.Manager()
@@ -153,19 +153,19 @@ class Product(TimeStamp):
                 except FileExistsError:
                     print(f'Folder {full_code} already exists!')
 
-    def save(self, force_insert=False, force_update=False, using=None,
-             update_fields=None):
-        self.create_folders_structure('internal')
-        super(Product, self).save()
+    # def save(self, *args, **kwargs):
+    #     super(Product, self).save(*args, **kwargs)
+    #     # self.create_folders_structure('internal')
 
     @staticmethod
     def xls_parse1(file_name):
         df = pd.read_excel(file_name)
         df[product_eancode_col].replace('', np.nan, inplace=True)
         df.dropna(subset=[product_eancode_col], inplace=True)
+        pbar = tqdm(total=len(df.index))
         for _, row in df.iterrows():
-            if row[product_brand_col] == brand[1]:
-                if row[product_index_col].isdigit():
+            if row[product_brand_col] == brand[1] or row[product_eancode_col] != '':
+                if str(row[product_index_col]).isdigit():
                     product = Product()
                     product.product_index = row[product_index_col]
                     product.product_code = row[product_code_col].strip().replace(' ', '')
@@ -183,12 +183,18 @@ class Product(TimeStamp):
                                                                                 row[product_category_col])
                     except Category.DoesNotExist:
                         continue
-                    product.save()
+                    try:
+                        product.save()
+                    except IntegrityError:
+                        continue
+            pbar.update(n=1)
+        pbar.close()
 
     @staticmethod
     def xls_parse2(file_name):
         # парсинг файла маркетинговых описаний и заполнение поля marketing_description модели Product
         df = pd.read_excel(file_name)
+        pbar = tqdm(total=len(df.index))
         for _, row in df.iterrows():
             query_product_code = row[product_code_col].strip().replace(' ', '')
             query_product_index = row[product_index_col]
@@ -196,7 +202,8 @@ class Product(TimeStamp):
                 Q(product_code=query_product_code),
                 Q(product_index=query_product_index)).update(
                 marketing_description=' '.join(row[marketing_description_col].split()))
-            print(f'{query_product_code}-{query_product_index} updated!')
+            pbar.update(n=1)
+        pbar.close()
 
     @staticmethod
     def description_gen(code, category):
@@ -281,4 +288,5 @@ class Content(TimeStamp):
                                                          allow_folders=True, max_length=256, null=True, blank=True)
     characteristics_external_url = models.URLField(max_length=128, blank=True, null=True)
     characteristics_photos_folder_hash = models.CharField(max_length=256, blank=True, null=True)
+    user = models.ForeignKey(CoreUser, on_delete=models.PROTECT, blank=True, null=True)
     objects = models.Manager()
