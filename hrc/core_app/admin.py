@@ -7,7 +7,7 @@ from .models import Category, Product
 class CategoryAdmin(VersionAdmin, admin.ModelAdmin):
     list_display = ('category_short_name', 'category_name', 'category_description', 'is_active')
     actions = ['set_active', 'set_inactive']
-    ordering = ['category_short_name', 'category_name']
+    ordering = ['category_short_name', 'category_name', 'is_active']
 
     def set_active(self, request, queryset):
         queryset.update(is_active=True)

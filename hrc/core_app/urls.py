@@ -4,7 +4,7 @@ from core_app import views
 
 app_name = 'core_app'
 urlpatterns = [
-    path('', cache_page(600)(views.ProductListView.as_view()), name='product_list'),
+    path('', views.ProductListView.as_view(), name='product_list'),
     path('product_search/', views.SearchFilterProductsView.as_view(), name='product_search'),
     path('product_url_filling/', views.ProductUrlFieldFill.as_view(), name='product_url_filling'),
     path('product_create/', views.ProductCreateView.as_view(), name='product_create'),

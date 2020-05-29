@@ -22,7 +22,7 @@ class FeedbackForm(forms.Form):
             print('*** Spam send detected!!! ')
             pass
         else:
-            subject = f'Сообщение с портара Hansa Content Library от {name}'
+            subject = f'Сообщение с портала HCL от {name}'
             send_mail(subject=subject, message=message, from_email=settings.DEFAULT_FROM_EMAIL, recipient_list=[email],
                       fail_silently=True)
 

@@ -10,6 +10,14 @@
             <h4 class="section-title-center">Категория "{{ object.category_name }}"</h4>
             <table id="fresh-table" class="table">
                 <tbody>
+                {% if object.has_image %}
+                <tr>
+                    <td>
+                        <img class="center-block" src="{{ category.category_image.url }}"
+                             width="128" alt="{{ object.category_name }}">
+                    </td>
+                </tr>
+                {% endif %}
                 <tr>
                     <td>
                         Короткое имя категории:
@@ -28,19 +36,20 @@
                         <span class="pull-right text-muted">{{ object.category_description }}</span>
                     </td>
                 </tr>
-                 <tr>
-                    <td>
-                        URL на сайте HANSA:
-                        <span class="pull-right text-muted">{{ object.category_site_url }}</span>
-                    </td>
-                </tr>
-                {% if object.has_image %}
                 <tr>
                     <td>
-                         <img src="{{ category.category_image.url }}" width="300" alt="{{ object.category_name }}">
+                        URL на сайте HANSA:
+                        <span class="pull-right text-muted">
+                         {% if category.category_site_url %}
+                             <a href="{{ category.category_site_url }}" target="_blank">
+                                 {{ category.category_site_url }}
+                             </a>
+                         {% else %}
+                             {{ category.category_site_url }}
+                         {% endif %}
+                     </span>
                     </td>
                 </tr>
-                {% endif %}
                 </tbody>
             </table>
         </div>

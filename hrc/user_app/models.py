@@ -2,7 +2,6 @@ import os
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.urls import reverse
-from django.utils.functional import cached_property
 
 
 def get_user_auth():
@@ -21,3 +20,17 @@ class CoreUser(AbstractUser):
     def get_absolute_url(self):
         return reverse("user_app:user_detail", kwargs={"slug": self.id})
 
+    def save(self, *args, **kwargs):
+        super(CoreUser, self).save(*args, **kwargs)
+        if not UserProfile.objects.filter(user=self).exists():
+            UserProfile.objects.create(user=self)
+
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(CoreUser, on_delete=models.CASCADE)
+    company_name = models.CharField(max_length=256, null=True, blank=True)
+    user_role = models.CharField(max_length=256, null=True, blank=True)
+    user_photo = models.ImageField(upload_to='users', blank=True, null=True)
+
+    def has_image(self):
+        return bool(self.user_photo)

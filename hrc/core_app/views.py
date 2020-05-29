@@ -12,7 +12,7 @@ class CategoryContextMixin(ContextMixin):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['categories'] = Category.objects.select_related().all()
+        context['categories'] = Category.objects.select_related().filter(is_active=True)
         return context
 
 
@@ -39,8 +39,11 @@ class FeedbackView(FormView):
 
 
 class CategoryListView(ListView, CategoryContextMixin):
-    queryset = Category.objects.select_related()
     template_name = 'core_app/category_list.html'
+
+    def get_queryset(self):
+        queryset = Category.active_objects.select_related().all()
+        return queryset
 
 
 class CategoryDetailView(DetailView, CategoryContextMixin):
@@ -75,11 +78,15 @@ class CategoryDeleteView(LoginRequiredMixin, DeleteView, CategoryContextMixin):
 
 
 class ProductListView(ListView, CategoryContextMixin, StatusContextMixin):
-    queryset = Product.objects.select_related()
+    # queryset = Product.objects.select_related()
     paginate_by = 15
     context_object_name = 'products'
     form = ProductForm
     template_name = 'core_app/product_list.html'
+
+    def get_queryset(self):
+        queryset = Product.objects.select_related().filter(is_active=True, product_category__is_active=True)
+        return queryset
 
 
 class ProductDetailView(DetailView, CategoryContextMixin, StatusContextMixin):

@@ -3,14 +3,15 @@ import platform
 import subprocess
 import time
 from tqdm import tqdm
-
 import numpy as np
 import pandas as pd
 import requests
+
 from django.db import models
 from django.db.models import Q
 from django.urls import reverse
 from django.db.utils import IntegrityError
+
 
 from user_app.models import CoreUser, get_user_auth
 from .constants import HEADER
@@ -18,6 +19,14 @@ from .constants import brand, brand_url, category_dict
 from .constants import int_server_name, ext_server_name, local_file_dir
 from .constants import product_category_col, product_status_col, marketing_description_col
 from .constants import product_code_col, product_index_col, product_eancode_col, product_brand_col
+from .managers import ActiveManager
+
+
+class IsActiveMixin(models.Model):
+    is_active = models.BooleanField(default=False)
+
+    class Meta:
+        abstract = True
 
 
 def ping(host):
@@ -51,19 +60,20 @@ class TimeStamp(models.Model):
         abstract = True
 
 
-class Category(TimeStamp):
+class Category(TimeStamp, IsActiveMixin):
     category_short_name = models.CharField(max_length=10, unique=True, db_index=True)
     category_name = models.CharField(max_length=64, unique=True)
     category_description = models.CharField(max_length=256, null=True, blank=True)
     category_site_url = models.URLField(max_length=128, blank=True, null=True)
     category_image = models.ImageField(upload_to='categories', blank=True, null=True)
     user = models.ForeignKey(CoreUser, on_delete=models.PROTECT, blank=True, null=True)
-    is_active = models.BooleanField(default=False)
     objects = models.Manager()
+    active_objects = ActiveManager()
 
     class Meta:
-        verbose_name = "Category"
-        verbose_name_plural = "Categories"
+        default_manager_name = 'objects'
+        verbose_name = 'Category'
+        verbose_name_plural = 'Categories'
 
     def __str__(self):
         return self.category_name
@@ -85,7 +95,7 @@ class Category(TimeStamp):
             return None
 
 
-class Product(TimeStamp):
+class Product(TimeStamp, IsActiveMixin):
     product_code = models.CharField(max_length=16, blank=True, null=True, db_index=True)
     product_index = models.PositiveIntegerField(unique=True, db_index=True)
     product_eancode = models.CharField(max_length=16, unique=True, db_index=True)
@@ -111,9 +121,9 @@ class Product(TimeStamp):
     product_external_url = models.URLField(max_length=128, blank=True, null=True)
     product_category = models.ForeignKey(Category, on_delete=models.PROTECT, db_index=True)
     user = models.ForeignKey(CoreUser, on_delete=models.PROTECT, blank=True, null=True)
-    is_active = models.BooleanField(default=True)
     rc_complete = models.PositiveSmallIntegerField(default=0)
     objects = models.Manager()
+    active_objects = ActiveManager()
 
     class Meta:
         ordering = ["product_code"]
@@ -229,14 +239,12 @@ class Product(TimeStamp):
             return None
 
 
-class Content(TimeStamp):
+class Content(TimeStamp, IsActiveMixin):
     product = models.OneToOneField(
         Product,
         on_delete=models.CASCADE,
         null=True,
         blank=True
-        # primary_key=True,
-        # default=Product.get_new,
     )
     layout = models.BooleanField(default=False)
     layout_internal_path = models.FilePathField(path=network_root_path, recursive=True,
