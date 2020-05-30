@@ -15,6 +15,10 @@ class File(TimeStamp):
     file_description = models.CharField(max_length=256, blank=True, null=True)
     user = models.ForeignKey(CoreUser, on_delete=models.PROTECT, blank=True, null=True)
 
+    class Meta:
+        verbose_name = "File"
+        verbose_name_plural = "Files"
+
     def __str__(self):
         return str(self.file_name)
 

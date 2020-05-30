@@ -5,6 +5,7 @@ from .models import File
 
 
 class FileAdmin(VersionAdmin, admin.ModelAdmin):
+    fields = ('file_name', 'file_description', 'user')
     list_display = ('file_name', 'file_description', 'user')
     ordering = ['file_name', 'user']
 
@@ -13,4 +14,4 @@ class FileAdmin(VersionAdmin, admin.ModelAdmin):
         super(FileAdmin, self).save_model(request, obj, form, change)
 
 
-admin.site.register(File)
+admin.site.register(File, FileAdmin)
