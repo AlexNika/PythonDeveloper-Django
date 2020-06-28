@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+    HCL | Заполнение продуктов данными
+{% endblock %}
+{% block content %}
+    <link href="{% static 'assets/css/fresh-bootstrap-table.css' %}" rel="stylesheet"/>
+    <div class="submit pull-right">
+        <a href="{% url 'core_app:product_internal_path_filling' %}" class="btn btn-danger btn-fill pull-right"
+           rel="stylesheet">
+        Заполнить путь на локальном сервере
+        </a>
+    </div>
+        <div class="fresh-table full-color-transparent">
+            <h4 class="section-title-center">Заполнение продуктов данными (PATH локального сервера)</h4>
+            <table id="fresh-table" class="table">
+                <thead>
+                    <th data-field="product_index">Hansa индекс</th>
+                    <th data-field="product_code">Hansa код</th>
+                    <th data-field="product_eancode">Hansa штрихкод</th>
+                    <th data-field="product_internal_path">PATH локального сервера</th>
+                </thead>
+                <tbody>
+                {% for item in products %}
+                    <tr>
+                        <td>{{ item.product_index }}</td>
+                        <td>{{ item.product_code }}</td>
+                        <td>{{ item.product_eancode }}</td>
+                        <td>{{ item.product_internal_path }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+{% endblock %}

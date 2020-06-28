@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+    HCL | Заполнение категорий данными
+{% endblock %}
+{% block content %}
+    <link href="{% static 'assets/css/fresh-bootstrap-table.css' %}" rel="stylesheet"
+          xmlns="http://www.w3.org/1999/html"/>
+    <div class="fresh-table full-color-transparent">
+        <h4 class="section-title-center">Заполнение категорий данными</h4>
+        <form role="form" method="post">
+            {% csrf_token %}
+            <p>
+                <input type="submit" class="btn btn-danger btn-fill" name="process_1"
+                       value="Заполнить ссылки на сайт в категориях">
+                <span class="small"> - заполнение поля "URL на сайте HANSA" по всем категориям HCL.</span>
+            </p>
+        </form>
+        {% if alert_category %}
+            {% include "core_app/notification_failed.html" %}
+        {% endif %}
+    </div>
+{% endblock %}

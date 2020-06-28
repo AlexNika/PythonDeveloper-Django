@@ -13,9 +13,15 @@ class StandardResultsSetPagination(PageNumberPagination):
 class CategoriesAPIListView(viewsets.ModelViewSet):
     queryset = Category.objects.select_related().all()
     serializer_class = CategorySerializer
+    lookup_field = 'category_short_name'
 
 
 class ProductsAPIListView(viewsets.ModelViewSet):
     pagination_class = StandardResultsSetPagination
     queryset = Product.objects.select_related().all()
     serializer_class = ProductSerializer
+    lookup_field = 'product_code'
+    __doc__ = 'sssssssssssssss'
+
+
+

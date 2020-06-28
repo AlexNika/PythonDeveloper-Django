@@ -15,6 +15,7 @@ int_server_name = 'ru15d001.amica.com.pl'
 
 # Local file dir
 local_file_dir = 'Site-HANSA.RU\\RICH_CONTENT'
+local_file_dir1 = 'Site-HANSA.RU/RICH_CONTENT'
 
 # Словарь категории
 category_dict = {
@@ -52,3 +53,17 @@ HEADER = {'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/5
                         'Chrome/77.0.3865.120 Safari/537.36'}
 
 TEST_IMAGE_PATH = '/temp/test_image.jpg'
+
+predefined_folders = {
+    'Верстка': 1,
+    'Макет': 2,
+    'Видео обзор': 3,
+    'Инструкции': 4,
+    'Маркетинговое описание': 5,
+    'Фото 360': 6,
+    'Фотографии в интерьере': 7,
+    'Фотографии дополнительные': 8,
+    'Фотографии продукта': 9,
+    'Характеристики': 10,
+    'Rich-контент': 11,
+}

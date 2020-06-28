@@ -125,6 +125,14 @@ body {
 	border-width: 2px !important;
 }
 
+.fresh-table[class*=full-color-] .btn.btn-click {
+    color: #fdfdff;
+    background-color: #30abff !important;
+    border-color: #30abff !important;
+    border-radius: 4px !important;
+    border-width: 2px !important;
+}
+
 .login-page, .register-page {
     height: auto !important;
 	min-height: 100% !important;
@@ -286,4 +294,44 @@ li {
 .errorlist {
 	margin-left: inherit;
 	color:coral;
+}
+
+.pull-right-red {
+    float: right !important;
+	color: red;
+}
+
+.pull-right-green {
+    float: right !important;
+	color: green;
+}
+
+.pull-right-blue {
+    float: right !important;
+	color: blue;
+}
+
+.pull-right-yellow {
+    float: right !important;
+	color: yellow;
+}
+
+.pull-right-lightgreen {
+    float: right !important;
+	color: LightGreen;
+}
+
+.pull-left-lightgreen {
+    float: left !important;
+	color: LightGreen;
+}
+
+.pull-right-lightgreen {
+    float: right !important;
+	color: LightGreen;
+}
+
+.pull-center-lightgreen {
+    float: center !important;
+	color: LightGreen;
 }

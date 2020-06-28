@@ -57,25 +57,25 @@
                                         <a href="{% url 'core_app:category_list' %}">Список категорий</a>
                                     </li>
                                     <li>
-                                        <a href="{% url 'core_app:category_create' %}">Создание категории в ручную</a>
+                                        <a href="{% url 'core_app:category_create' %}">Добавление категории в ручную</a>
                                     </li>
                                     <li class="divider"></li>
                                     <li>
-                                        <a href="{% url 'core_app:product_list' %}">Список моделей</a>
-                                    </li>
-                                    <li>
-                                        <a href="{% url 'core_app:product_create' %}">Создание модели в ручную</a>
+                                        <a href="{% url 'core_app:product_create' %}">Добавление товара в ручную</a>
                                     </li>
                                     <li class="divider"></li>
                                     <li>
                                         <a href="{% url 'file_parser_app:import_file' %}">Импорт базовых файлов</a>
                                     </li>
                                     <li class="divider"></li>
-                                    <li><a href="#">Process...</a></li>
-                                    <li><a href="#">Process...</a></li>
-                                    <li><a href="#">Process...</a></li>
+                                    <li>
+                                        <a href="{% url 'core_app:category_processor' %}">Заполнение данных в
+                                            категориях</a>
+                                    </li>
                                     <li class="divider"></li>
-                                    <li><a href="#">Final process...</a></li>
+                                    <li>
+                                        <a href="{% url 'core_app:product_processor' %}">Заполнение данных в товарах</a>
+                                    </li>
                                 </ul>
                             </li>
                         {% endif %}
@@ -83,12 +83,12 @@
                     <ul class="nav navbar-nav navbar-right">
                         {% if user.is_authenticated %}
                             {% if user.is_superuser %}
-                            <li>
-                                <a href="{% url 'admin:index' %}">
-                                    <i class="fa fa-user-md" aria-hidden="true"></i>
-                                    Адм.панель
-                                </a>
-                            </li>
+                                <li>
+                                    <a href="{% url 'admin:index' %}">
+                                        <i class="fa fa-user-md" aria-hidden="true"></i>
+                                        Адм.панель
+                                    </a>
+                                </li>
                             {% endif %}
                             <li>
                                 <a href="{% url 'user_app:logout' %}">
