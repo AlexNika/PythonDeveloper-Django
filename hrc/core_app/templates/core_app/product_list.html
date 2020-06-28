@@ -6,58 +6,57 @@
 {% block content %}
     <link href="{% static 'assets/css/fresh-bootstrap-table.css' %}" rel="stylesheet"/>
     {% include "core_app/search.html" %}
-        <div class="fresh-table full-color-transparent">
-            <h4 class="section-title-center">Список моделей</h4>
-            <table id="fresh-table" class="table">
-                <thead>
-                    <th data-field="product_status">Категория</th>
-                    <th data-field="product_code">Hansa код</th>
-                    <th data-field="product_description">Описание</th>
-                    <th data-field="product_site_url">Сайт URL</th>
-                    <th data-field="product_status">Статус</th>
-                    <th data-field="product_operations">Операции</th>
-                </thead>
-                <tbody>
-                {% for item in products %}
-                    <tr>
-                        <td>
-                            {{ item.product_category.category_short_name }}
-                        </td>
-                        <td>
-                            <a class="code" href="{{ item.get_absolute_url }}">
-                                {{ item.product_code }}
+    <div class="fresh-table full-color-transparent">
+        <h4 class="section-title-center">Список моделей</h4>
+        <table id="fresh-table" class="table">
+            <thead>
+            <th data-field="product_status">Категория</th>
+            <th data-field="product_code">Hansa код</th>
+            <th data-field="product_operations"></th>
+            <th data-field="product_description">Описание</th>
+            <th data-field="product_site_url">Сайт URL</th>
+            <th data-field="product_status">Статус</th>
+            <th data-field="product_rc">РИЧ-КОНТЕНТ</th>
+            </thead>
+            <tbody>
+            {% for item in products %}
+                <tr>
+                    <td>
+                        {{ item.product_category.category_short_name }}
+                    </td>
+                    <td>
+                        <a class="code" href="{{ item.get_absolute_url }}">
+                            {{ item.product_code }}
+                        </a>
+                    </td>
+                    <td>
+                        <a rel="tooltip" title="Изменить" class="change table-action edit"
+                           href="{% url 'core_app:product_update' slug=item.product_slug %}">
+                            <i class="fa fa-edit"></i>
+                        </a>
+                    </td>
+                    <td>{{ item.product_description }}</td>
+                    {% if item.product_site_url %}
+                        <td class="text-center">
+                            <a class="code" href="{{ item.product_site_url }}" target="_blank">
+                                <i class="fa fa-link" aria-hidden="true"></i>
                             </a>
                         </td>
-                        <td>{{ item.product_description }}</td>
-                        {% if item.product_site_url %}
-                            <td>
-                                <a class="code" href="{{ item.product_site_url }}" target="_blank">
-                                    <i class="fa fa-link" aria-hidden="true"></i>
-                                </a>
-                            </td>
-                        {% else %}
-                            <td>
-                                <i class="fa fa-chain-broken" aria-hidden="true"></i>
-                            </td>
-                        {% endif %}
-                        <td>{{ item.product_status }}</td>
-                        <td>
-                            <a rel="tooltip" title="Изменить" class="change table-action edit"
-                               href="{% url 'core_app:product_update' slug=item.product_index %}">
-                                <i class="fa fa-edit"></i>
-                            </a>
-                            <a rel="tooltip" title="Удалить" class="table-action remove"
-                               href="{{ item.get_absolute_url }}">
-                                <i class="fa fa-remove"></i>
-                            </a>
+                    {% else %}
+                        <td class="text-center">
+                            <i class="fa fa-chain-broken" aria-hidden="true"></i>
                         </td>
-                    </tr>
-                    {% empty %}
-                        <p>Sorry!!!</p>
-                {% endfor %}
-                </tbody>
-            </table>
-        </div>
+                    {% endif %}
+                    <td class="text-center">{{ item.product_status }}</td>
+                    <td class="text-center"><span class="pull-center-lightgreen"><b>{{ item.rc_complete }}%</b></span>
+                    </td>
+                </tr>
+            {% empty %}
+                <p>Sorry!!!</p>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
     <div class="space-30"></div>
     <div class="pagination pull-left">
         {% if page_obj.has_previous %}

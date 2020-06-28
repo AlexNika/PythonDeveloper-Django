@@ -5,56 +5,55 @@
 {% endblock %}
 {% block content %}
     <link href="{% static 'assets/css/fresh-bootstrap-table.css' %}" rel="stylesheet"/>
-    <div class="contact-us">
         <div class="fresh-table full-color-transparent">
             <h4 class="section-title-center">{{ product.product_description }}</h4>
             <table id="fresh-table" class="table">
                 <tbody>
                 <tr>
                     <td>
-                        Индекс:
+                        Индекс
                         <span class="pull-right text-muted">{{ product.product_index }}</span>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        Hansa код:
+                        Hansa код
                         <span class="pull-right text-muted">{{ product.product_code }}</span>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        EAN код (штрихкод):
+                        EAN код (штрихкод)
                         <span class="pull-right text-muted">{{ product.product_eancode }}</span>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        Категория:
+                        Категория
                         <span class="pull-right text-muted">{{ product.product_category }}</span>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        Описание:
+                        Описание
                         <span class="pull-right text-muted">{{ product.product_description }}</span>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        Статус:
+                        Статус
                         <span class="pull-right text-muted">{{ product.product_status }}</span>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        Маркетинговое описание:
+                        Маркетинговое описание
                         <span class="pull-right text-muted">{{ product.marketing_description }}</span>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        URL на сайте HANSA:
+                        URL на сайте HANSA
                         <span class="pull-right text-muted">
                             {% if product.product_site_url %}
                                 <a href="{{ product.product_site_url }}" target="_blank">
@@ -68,15 +67,133 @@
                 </tr>
                 <tr>
                     <td>
-                        Local server PATH в Hansa content library:
-                        <span class="pull-right text-muted">{{ product.product_internal_path }}</span>
+                        Local PATH
+                        <div class="pull-right text-muted">
+                            {% if product.product_internal_path %}
+                                <div>
+                                    <span id={{ product.id }}>
+                                        {{ product.product_internal_path }}
+                                    </span>
+                                    <span>
+                                        <button class="submit btn btn-danger btn-click" id="cp_btn">Copy</button>
+                                    </span>
+                                </div>
+                            {% else %}
+                                {{ product.product_internal_path }}
+                            {% endif %}
+                        </div>
                     </td>
                 </tr>
-
                 <tr>
                     <td>
-                        FTP URL в Hansa content library:
+                        FTP URL в Hansa content library
                         <span class="pull-right text-muted">{{ product.product_external_url }}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-center">
+                        <span class="table-bordered pull-center-lightgreen"><b>% ЗАПОЛНЕНИЯ РИЧ-КОНТЕНТОМ</b></span>
+                        <span class="pull-right-lightgreen">{{ product.rc_complete }}%</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Наличие <b><u>макета</u></b> в библиотеке HCL
+                        {% if not product.maquette %}
+                            <span class="pull-right-red">{{ product.maquette|yesno:"Да,Нет" }}</span>
+                        {% else %}
+                            <span class="pull-right-lightgreen">{{ product.maquette|yesno:"Да,Нет" }}</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Наличие <b><u>верстки</u></b> в библиотеке HCL
+                        {% if not product.layout %}
+                            <span class="pull-right-red">{{ product.layout|yesno:"Да,Нет" }}</span>
+                        {% else %}
+                            <span class="pull-right-lightgreen">{{ product.layout|yesno:"Да,Нет" }}</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Наличие <b><u>видео обзоров</u></b> в библиотеке HCL
+                        {% if not product.videos %}
+                            <span class="pull-right-red">{{ product.videos|yesno:"Да,Нет" }}</span>
+                        {% else %}
+                            <span class="pull-right-lightgreen">{{ product.videos|yesno:"Да,Нет" }}</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Наличие <b><u>фото в интерьере</u></b> в библиотеке HCL
+                        {% if not product.interior_photos %}
+                            <span class="pull-right-red">{{ product.interior_photos|yesno:"Да,Нет" }}</span>
+                        {% else %}
+                            <span class="pull-right-lightgreen">{{ product.interior_photos|yesno:"Да,Нет" }}</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Наличие <b><u>анимации (фото 3D)</u></b> в библиотеке HCL
+                        {% if not product.photos_3d %}
+                            <span class="pull-right-red">{{ product.photos_3d|yesno:"Да,Нет" }}</span>
+                        {% else %}
+                            <span class="pull-right-lightgreen">{{ product.photos_3d|yesno:"Да,Нет" }}</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Наличие <b><u>дополнительных фото</u></b> в библиотеке HCL
+                        {% if not product.auxiliary_photos %}
+                            <span class="pull-right-red">{{ product.auxiliary_photos|yesno:"Да,Нет" }}</span>
+                        {% else %}
+                            <span class="pull-right-lightgreen">{{ product.auxiliary_photos|yesno:"Да,Нет" }}</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Наличие <b><u>основных фотографий товара</u></b> в библиотеке HCL
+                        {% if not product.photos %}
+                            <span class="pull-right-red">{{ product.photos|yesno:"Да,Нет" }}</span>
+                        {% else %}
+                            <span class="pull-right-lightgreen">{{ product.photos|yesno:"Да,Нет" }}</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Наличие <b><u>файла характеристик товара</u></b> в библиотеке HCL
+                        {% if not product.characteristics %}
+                            <span class="pull-right-red">{{ product.characteristics|yesno:"Да,Нет" }}</span>
+                        {% else %}
+                            <span class="pull-right-lightgreen">{{ product.characteristics|yesno:"Да,Нет" }}</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Наличие <b><u>инструкций по эксплуатации</u></b> в библиотеке HCL
+                        {% if not product.manuals %}
+                            <span class="pull-right-red">{{ product.manuals|yesno:"Да,Нет" }}</span>
+                        {% else %}
+                            <span class="pull-right-lightgreen">{{ product.manuals|yesno:"Да,Нет" }}</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Наличие <b><u>маркетингового описания</u></b> в библиотеке HCL
+                        {% if not product.descriptions %}
+                            <span class="pull-right-red">{{ product.descriptions|yesno:"Да,Нет" }}</span>
+                        {% else %}
+                            <span class="pull-right-lightgreen">{{ product.descriptions|yesno:"Да,Нет" }}</span>
+                        {% endif %}
                     </td>
                 </tr>
                 </tbody>
@@ -84,14 +201,27 @@
         </div>
         <div class="space-30"></div>
         <div class="submit">
-            <a href="{% url 'core_app:product_update' slug=product.product_index %}"
+            <a href="{% url 'core_app:product_update' slug=product.product_slug %}"
                class="btn btn-danger btn-fill pull-left">
                 Изменить товар
             </a>
-{#            <a href="{% url 'core_app:category_delete' pk=product.pk %}" class="btn btn-danger btn-fill pull-right">#}
-            <a href="{{ product.get_absolute_url }}" class="btn btn-danger btn-fill pull-right">
-                Удалить товар
-            </a>
         </div>
-    </div>
+    <script type="text/javascript">
+        document.getElementById('cp_btn').addEventListener('click', copyText);
+        function copyText() {
+            var copyText = document.getElementById({{ product.id }});
+            var range = document.createRange()
+            range.selectNode(copyText);
+            window.getSelection().addRange(range);
+              try {
+                    var successful = document.execCommand('copy');
+                    var msg = successful ? 'successful' : 'unsuccessful';
+                    console.log('Copy local server PATH was ' + msg);
+                    }
+              catch(err) {
+                    console.log('Oops, unable to copy');
+                    }
+            window.getSelection().removeAllRanges();
+        }
+    </script>
 {% endblock %}

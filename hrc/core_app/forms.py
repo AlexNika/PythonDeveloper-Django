@@ -41,7 +41,7 @@ class CategoryForm(forms.ModelForm):
 
     class Meta:
         model = Category
-        exclude = ['user']
+        exclude = ['category_slug', 'user']
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -61,7 +61,8 @@ class ProductForm(forms.ModelForm):
 
     class Meta:
         model = Product
-        exclude = ['user']
+        fields = '__all__'
+        exclude = ['product_slug']
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -79,4 +80,11 @@ class CategorySiteUrl(forms.ModelForm):
 
     class Meta:
         model = Category
-        fields = ['category_short_name', 'category_name', 'category_site_url']
+        fields = '__all__'
+
+
+class ProductInternalPath(forms.ModelForm):
+
+    class Meta:
+        model = Product
+        fields = '__all__'

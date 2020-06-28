@@ -38,11 +38,8 @@
                         {% endif %}
                         <td>
                             <a rel="tooltip" title="Изменить" class="table-action edit"
-                               href="{% url 'core_app:category_update' slug=item.category_short_name %}">
+                               href="{% url 'core_app:category_update' slug=item.category_slug %}">
                                 <i class="fa fa-edit"></i>
-                            </a>
-                            <a rel="tooltip" title="Удалить" class="table-action remove"
-                               href="{{ category.get_absolute_url }}"><i class="fa fa-remove"></i>
                             </a>
                         </td>
                     </tr>

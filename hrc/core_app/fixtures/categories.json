@@ -1,1 +1,194 @@
-[{"model": "core_app.category", "pk": 1, "fields": {"create": "2020-05-17T12:28:31.541Z", "update": "2020-05-17T12:57:11.475Z", "category_short_name": "CBI", "category_name": "\u0414\u0443\u0445\u043e\u0432\u044b\u0435 \u0448\u043a\u0430\u0444\u044b", "category_description": "\u0414\u0443\u0445\u043e\u0432\u044b\u0435 \u0448\u043a\u0430\u0444\u044b Hansa", "category_site_url": "https://www.hansa.ru/catalog/duchovki/", "category_image": "", "user": 1, "is_active": true}}, {"model": "core_app.category", "pk": 2, "fields": {"create": "2020-05-17T12:29:04.865Z", "update": "2020-05-17T12:57:26.425Z", "category_short_name": "CFS", "category_name": "\u041e\u0442\u0434\u0435\u043b\u044c\u043d\u043e\u0441\u0442\u043e\u044f\u0449\u0438\u0435 \u043f\u043b\u0438\u0442\u044b", "category_description": "\u041e\u0442\u0434\u0435\u043b\u044c\u043d\u043e\u0441\u0442\u043e\u044f\u0449\u0438\u0435 \u043f\u043b\u0438\u0442\u044b Hansa", "category_site_url": "https://www.hansa.ru/catalog/plity/", "category_image": "", "user": 1, "is_active": true}}, {"model": "core_app.category", "pk": 3, "fields": {"create": "2020-05-17T12:46:12.355Z", "update": "2020-05-17T12:58:02.397Z", "category_short_name": "RFW", "category_name": "\u0412\u0438\u043d\u043d\u044b\u0435 \u0448\u043a\u0430\u0444\u044b", "category_description": "\u0412\u0438\u043d\u043d\u044b\u0435 \u0448\u043a\u0430\u0444\u044b Hansa", "category_site_url": "https://www.hansa.ru/catalog/vinnye_shkafy/", "category_image": "", "user": 1, "is_active": true}}, {"model": "core_app.category", "pk": 4, "fields": {"create": "2020-05-17T12:46:37.687Z", "update": "2020-05-17T12:57:43.166Z", "category_short_name": "HOO", "category_name": "\u0412\u044b\u0442\u044f\u0436\u043a\u0438", "category_description": "\u0412\u044b\u0442\u044f\u0436\u043a\u0438 Hansa", "category_site_url": "https://www.hansa.ru/catalog/vytyazhki/", "category_image": "", "user": 1, "is_active": true}}, {"model": "core_app.category", "pk": 5, "fields": {"create": "2020-05-17T12:48:03.506Z", "update": "2020-05-17T12:57:38.080Z", "category_short_name": "HOB", "category_name": "\u0412\u0430\u0440\u043e\u0447\u043d\u044b\u0435 \u043f\u043e\u0432\u0435\u0440\u0445\u043d\u043e\u0441\u0442\u0438 (\u041f\u043e\u043b\u044c\u0448\u0430)", "category_description": "\u0412\u0430\u0440\u043e\u0447\u043d\u044b\u0435 \u043f\u043e\u0432\u0435\u0440\u0445\u043d\u043e\u0441\u0442\u0438 Hansa, \u043f\u0440\u043e\u0438\u0437\u0432\u043e\u0434\u0441\u0442\u0432\u043e \u041f\u043e\u043b\u044c\u0448\u0430", "category_site_url": "https://www.hansa.ru/catalog/varochnye_poverkhnosti/", "category_image": "", "user": 1, "is_active": true}}, {"model": "core_app.category", "pk": 6, "fields": {"create": "2020-05-17T12:48:56.908Z", "update": "2020-05-17T12:58:12.811Z", "category_short_name": "TGC", "category_name": "\u0412\u0430\u0440\u043e\u0447\u043d\u044b\u0435 \u043f\u043e\u0432\u0435\u0440\u0445\u043d\u043e\u0441\u0442\u0438 (\u041a\u0438\u0442\u0430\u0439)", "category_description": "\u0412\u0430\u0440\u043e\u0447\u043d\u044b\u0435 \u043f\u043e\u0432\u0435\u0440\u0445\u043d\u043e\u0441\u0442\u0438 Hansa, \u043f\u0440\u043e\u0438\u0437\u0432\u043e\u0434\u0441\u0442\u0432\u043e \u041a\u0438\u0442\u0430\u0439", "category_site_url": "https://www.hansa.ru/catalog/varochnye_poverkhnosti/", "category_image": "", "user": 1, "is_active": true}}, {"model": "core_app.category", "pk": 7, "fields": {"create": "2020-05-17T12:49:28.912Z", "update": "2020-05-17T12:57:47.604Z", "category_short_name": "MWS", "category_name": "\u041c\u0438\u043a\u0440\u043e\u0432\u043e\u043b\u043d\u043e\u0432\u044b\u0435 \u043f\u0435\u0447\u0438", "category_description": "\u041c\u0438\u043a\u0440\u043e\u0432\u043e\u043b\u043d\u043e\u0432\u044b\u0435 \u043f\u0435\u0447\u0438 Hansa", "category_site_url": "https://www.hansa.ru/catalog/cvch/", "category_image": "", "user": 1, "is_active": true}}, {"model": "core_app.category", "pk": 8, "fields": {"create": "2020-05-17T12:49:55.427Z", "update": "2020-05-17T12:57:19.713Z", "category_short_name": "CCI", "category_name": "\u041c\u0438\u043a\u0440\u043e\u0432\u043e\u043b\u043d\u043e\u0432\u044b\u0435 \u043f\u0435\u0447\u0438 (>40 \u043b\u0438\u0442\u0440\u043e\u0432)", "category_description": "\u041c\u0438\u043a\u0440\u043e\u0432\u043e\u043b\u043d\u043e\u0432\u044b\u0435 \u043f\u0435\u0447\u0438 Hansa \u043e\u0431\u044a\u0435\u043c\u043e\u043c \u0431\u043e\u043b\u044c\u0448\u0435 40 \u043b\u0438\u0442\u0440\u043e\u0432", "category_site_url": "https://www.hansa.ru/catalog/cvch/", "category_image": "", "user": 1, "is_active": true}}, {"model": "core_app.category", "pk": 9, "fields": {"create": "2020-05-17T12:50:32.513Z", "update": "2020-05-17T12:57:53.175Z", "category_short_name": "REF", "category_name": "\u0425\u043e\u043b\u043e\u0434\u0438\u043b\u044c\u043d\u0438\u043a\u0438", "category_description": "\u0425\u043e\u043b\u043e\u0434\u0438\u043b\u044c\u043d\u0438\u043a\u0438, \u043c\u043e\u0440\u043e\u0437\u0438\u043b\u044c\u043d\u0438\u043a\u0438 \u0438 \u043b\u0430\u0440\u0438 Hansa", "category_site_url": "https://www.hansa.ru/catalog/kholodilniki/", "category_image": "", "user": 1, "is_active": true}}, {"model": "core_app.category", "pk": 10, "fields": {"create": "2020-05-17T12:51:54.991Z", "update": "2020-05-17T12:57:32.435Z", "category_short_name": "DWS", "category_name": "\u041f\u043e\u0441\u0443\u0434\u043e\u043c\u043e\u0435\u0447\u043d\u044b\u0435 \u043c\u0430\u0448\u0438\u043d\u044b", "category_description": "\u041f\u043e\u0441\u0443\u0434\u043e\u043c\u043e\u0435\u0447\u043d\u044b\u0435 \u043c\u0430\u0448\u0438\u043d\u044b Hansa", "category_site_url": "https://www.hansa.ru/catalog/posudomoechnye_mashiny/", "category_image": "", "user": 1, "is_active": true}}, {"model": "core_app.category", "pk": 11, "fields": {"create": "2020-05-17T12:52:17.564Z", "update": "2020-05-17T12:58:17.866Z", "category_short_name": "WMS", "category_name": "\u0421\u0442\u0438\u0440\u0430\u043b\u044c\u043d\u044b\u0435 \u043c\u0430\u0448\u0438\u043d\u044b", "category_description": "\u0421\u0442\u0438\u0440\u0430\u043b\u044c\u043d\u044b\u0435 \u043c\u0430\u0448\u0438\u043d\u044b Hansa", "category_site_url": "https://www.hansa.ru/catalog/stiralnye_machiny/", "category_image": "", "user": 1, "is_active": true}}]
+[
+{
+    "model": "core_app.category",
+    "pk": 1,
+    "fields": {
+        "is_active": true,
+        "create": "2020-05-17T12:28:31.541Z",
+        "update": "2020-06-26T14:56:10.327Z",
+        "category_short_name": "CBI",
+        "category_slug": "cbi",
+        "category_name": "\u0414\u0443\u0445\u043e\u0432\u044b\u0435 \u0448\u043a\u0430\u0444\u044b",
+        "category_description": "\u0414\u0443\u0445\u043e\u0432\u044b\u0435 \u0448\u043a\u0430\u0444\u044b Hansa",
+        "category_site_url": "https://www.hansa.ru/catalog/duchovki/",
+        "category_image": "categories/cbi.png",
+        "user": 1
+    }
+},
+{
+    "model": "core_app.category",
+    "pk": 2,
+    "fields": {
+        "is_active": true,
+        "create": "2020-05-17T12:29:04.865Z",
+        "update": "2020-06-26T14:56:16.151Z",
+        "category_short_name": "CFS",
+        "category_slug": "cfs",
+        "category_name": "\u041e\u0442\u0434\u0435\u043b\u044c\u043d\u043e\u0441\u0442\u043e\u044f\u0449\u0438\u0435 \u043f\u043b\u0438\u0442\u044b",
+        "category_description": "\u041e\u0442\u0434\u0435\u043b\u044c\u043d\u043e\u0441\u0442\u043e\u044f\u0449\u0438\u0435 \u043f\u043b\u0438\u0442\u044b Hansa",
+        "category_site_url": "https://www.hansa.ru/catalog/plity/",
+        "category_image": "categories/cfs.png",
+        "user": 1
+    }
+},
+{
+    "model": "core_app.category",
+    "pk": 3,
+    "fields": {
+        "is_active": true,
+        "create": "2020-05-17T12:46:12.355Z",
+        "update": "2020-06-26T14:56:20.466Z",
+        "category_short_name": "RFW",
+        "category_slug": "rfw",
+        "category_name": "\u0412\u0438\u043d\u043d\u044b\u0435 \u0448\u043a\u0430\u0444\u044b",
+        "category_description": "\u0412\u0438\u043d\u043d\u044b\u0435 \u0448\u043a\u0430\u0444\u044b Hansa",
+        "category_site_url": "https://www.hansa.ru/catalog/vinnye_shkafy/",
+        "category_image": "categories/rfw.png",
+        "user": 1
+    }
+},
+{
+    "model": "core_app.category",
+    "pk": 4,
+    "fields": {
+        "is_active": true,
+        "create": "2020-05-17T12:46:37.687Z",
+        "update": "2020-06-26T14:56:24.150Z",
+        "category_short_name": "HOO",
+        "category_slug": "hoo",
+        "category_name": "\u0412\u044b\u0442\u044f\u0436\u043a\u0438",
+        "category_description": "\u0412\u044b\u0442\u044f\u0436\u043a\u0438 Hansa",
+        "category_site_url": "https://www.hansa.ru/catalog/vytyazhki/",
+        "category_image": "categories/hoo.png",
+        "user": 1
+    }
+},
+{
+    "model": "core_app.category",
+    "pk": 5,
+    "fields": {
+        "is_active": true,
+        "create": "2020-05-17T12:48:03.506Z",
+        "update": "2020-06-26T14:56:28.280Z",
+        "category_short_name": "HOB",
+        "category_slug": "hob",
+        "category_name": "\u0412\u0430\u0440\u043e\u0447\u043d\u044b\u0435 \u043f\u043e\u0432\u0435\u0440\u0445\u043d\u043e\u0441\u0442\u0438 (\u041f\u043e\u043b\u044c\u0448\u0430)",
+        "category_description": "\u0412\u0430\u0440\u043e\u0447\u043d\u044b\u0435 \u043f\u043e\u0432\u0435\u0440\u0445\u043d\u043e\u0441\u0442\u0438 Hansa, \u043f\u0440\u043e\u0438\u0437\u0432\u043e\u0434\u0441\u0442\u0432\u043e \u041f\u043e\u043b\u044c\u0448\u0430",
+        "category_site_url": "https://www.hansa.ru/catalog/varochnye_poverkhnosti/",
+        "category_image": "categories/hob.png",
+        "user": 1
+    }
+},
+{
+    "model": "core_app.category",
+    "pk": 6,
+    "fields": {
+        "is_active": true,
+        "create": "2020-05-17T12:48:56.908Z",
+        "update": "2020-06-26T14:56:32.493Z",
+        "category_short_name": "TGC",
+        "category_slug": "tgc",
+        "category_name": "\u0412\u0430\u0440\u043e\u0447\u043d\u044b\u0435 \u043f\u043e\u0432\u0435\u0440\u0445\u043d\u043e\u0441\u0442\u0438 (\u041a\u0438\u0442\u0430\u0439)",
+        "category_description": "\u0412\u0430\u0440\u043e\u0447\u043d\u044b\u0435 \u043f\u043e\u0432\u0435\u0440\u0445\u043d\u043e\u0441\u0442\u0438 Hansa, \u043f\u0440\u043e\u0438\u0437\u0432\u043e\u0434\u0441\u0442\u0432\u043e \u041a\u0438\u0442\u0430\u0439",
+        "category_site_url": "https://www.hansa.ru/catalog/varochnye_poverkhnosti/",
+        "category_image": "categories/hob_YTPD59z.png",
+        "user": 1
+    }
+},
+{
+    "model": "core_app.category",
+    "pk": 7,
+    "fields": {
+        "is_active": true,
+        "create": "2020-05-17T12:49:28.912Z",
+        "update": "2020-06-26T14:56:36.607Z",
+        "category_short_name": "MWS",
+        "category_slug": "mws",
+        "category_name": "\u041c\u0438\u043a\u0440\u043e\u0432\u043e\u043b\u043d\u043e\u0432\u044b\u0435 \u043f\u0435\u0447\u0438",
+        "category_description": "\u041c\u0438\u043a\u0440\u043e\u0432\u043e\u043b\u043d\u043e\u0432\u044b\u0435 \u043f\u0435\u0447\u0438 Hansa",
+        "category_site_url": "https://www.hansa.ru/catalog/cvch/",
+        "category_image": "categories/mws.png",
+        "user": 1
+    }
+},
+{
+    "model": "core_app.category",
+    "pk": 8,
+    "fields": {
+        "is_active": true,
+        "create": "2020-05-17T12:49:55.427Z",
+        "update": "2020-06-26T14:56:41.471Z",
+        "category_short_name": "CCI",
+        "category_slug": "cci",
+        "category_name": "\u041c\u0438\u043a\u0440\u043e\u0432\u043e\u043b\u043d\u043e\u0432\u044b\u0435 \u043f\u0435\u0447\u0438 (>40 \u043b\u0438\u0442\u0440\u043e\u0432)",
+        "category_description": "\u041c\u0438\u043a\u0440\u043e\u0432\u043e\u043b\u043d\u043e\u0432\u044b\u0435 \u043f\u0435\u0447\u0438 Hansa \u043e\u0431\u044a\u0435\u043c\u043e\u043c \u0431\u043e\u043b\u044c\u0448\u0435 40 \u043b\u0438\u0442\u0440\u043e\u0432",
+        "category_site_url": "https://www.hansa.ru/catalog/cvch/",
+        "category_image": "categories/cci.png",
+        "user": 1
+    }
+},
+{
+    "model": "core_app.category",
+    "pk": 9,
+    "fields": {
+        "is_active": true,
+        "create": "2020-05-17T12:50:32.513Z",
+        "update": "2020-06-26T14:56:45.391Z",
+        "category_short_name": "REF",
+        "category_slug": "ref",
+        "category_name": "\u0425\u043e\u043b\u043e\u0434\u0438\u043b\u044c\u043d\u0438\u043a\u0438",
+        "category_description": "\u0425\u043e\u043b\u043e\u0434\u0438\u043b\u044c\u043d\u0438\u043a\u0438, \u043c\u043e\u0440\u043e\u0437\u0438\u043b\u044c\u043d\u0438\u043a\u0438 \u0438 \u043b\u0430\u0440\u0438 Hansa",
+        "category_site_url": "https://www.hansa.ru/catalog/kholodilniki/",
+        "category_image": "categories/ref.png",
+        "user": 1
+    }
+},
+{
+    "model": "core_app.category",
+    "pk": 10,
+    "fields": {
+        "is_active": true,
+        "create": "2020-05-17T12:51:54.991Z",
+        "update": "2020-06-26T14:56:49.313Z",
+        "category_short_name": "DWS",
+        "category_slug": "dws",
+        "category_name": "\u041f\u043e\u0441\u0443\u0434\u043e\u043c\u043e\u0435\u0447\u043d\u044b\u0435 \u043c\u0430\u0448\u0438\u043d\u044b",
+        "category_description": "\u041f\u043e\u0441\u0443\u0434\u043e\u043c\u043e\u0435\u0447\u043d\u044b\u0435 \u043c\u0430\u0448\u0438\u043d\u044b Hansa",
+        "category_site_url": "https://www.hansa.ru/catalog/posudomoechnye_mashiny/",
+        "category_image": "categories/dws.png",
+        "user": 1
+    }
+},
+{
+    "model": "core_app.category",
+    "pk": 11,
+    "fields": {
+        "is_active": true,
+        "create": "2020-05-17T12:52:17.564Z",
+        "update": "2020-06-26T14:56:53.723Z",
+        "category_short_name": "WMS",
+        "category_slug": "wms",
+        "category_name": "\u0421\u0442\u0438\u0440\u0430\u043b\u044c\u043d\u044b\u0435 \u043c\u0430\u0448\u0438\u043d\u044b",
+        "category_description": "\u0421\u0442\u0438\u0440\u0430\u043b\u044c\u043d\u044b\u0435 \u043c\u0430\u0448\u0438\u043d\u044b Hansa",
+        "category_site_url": "https://www.hansa.ru/catalog/stiralnye_machiny/",
+        "category_image": "categories/wms.png",
+        "user": 1
+    }
+},
+{
+    "model": "core_app.category",
+    "pk": 12,
+    "fields": {
+        "is_active": false,
+        "create": "2020-05-27T09:03:21.953Z",
+        "update": "2020-06-26T17:59:54.525Z",
+        "category_short_name": "OTH",
+        "category_slug": "oth",
+        "category_name": "\u0414\u0440\u0443\u0433\u0438\u0435 \u0442\u043e\u0432\u0430\u0440\u044b",
+        "category_description": "\u0414\u0440\u0443\u0433\u0438\u0435 \u0442\u043e\u0432\u0430\u0440\u044b Hansa",
+        "category_site_url": null,
+        "category_image": "",
+        "user": 1
+    }
+}
+]

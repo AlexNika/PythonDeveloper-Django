@@ -12,7 +12,7 @@ SECRET_KEY = '&5gwpdk_5yw)#$_eu4mknjm5t5(0w(##*-u@moo)h+%9a*4yk('
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'hcl.hansa.ru', '45.90.34.18']
 
 
 # Application definition
@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'file_parser_app',
     'user_app',
     'reversion',
+    # 'celery_progress',
     'rest_framework',
     'debug_toolbar',
     'django_cleanup.apps.CleanupConfig',
@@ -130,9 +131,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # E-mail settings
 
-DEFAULT_FROM_EMAIL = 'hcl@hansa.ru'
+DEFAULT_FROM_EMAIL = 'robot@hcl.hansa.ru'
 EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST = 'smtp.yandex.com'
 EMAIL_HOST_USER = 'username'
 EMAIL_HOST_PASSWORD = 'password'
 EMAIL_PORT = 587
@@ -168,8 +169,8 @@ INTERNAL_IPS = [
 # }
 
 # saving session in cache
-SESSION_ENGINE = "django.contrib.sessions.backends.cache"
-SESSION_CACHE_ALIAS = "default"
+# SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+# SESSION_CACHE_ALIAS = "default"
 
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,

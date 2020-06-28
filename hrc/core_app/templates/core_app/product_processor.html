@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+    HCL | Заполнение товаров данными
+{% endblock %}
+{% block content %}
+    <link href="{% static 'assets/css/fresh-bootstrap-table.css' %}" rel="stylesheet"
+          xmlns="http://www.w3.org/1999/html"/>
+    <div class="fresh-table full-color-transparent">
+        <h4 class="section-title-center">Заполнение товаров данными</h4>
+        <form role="form" method="post">
+            {% csrf_token %}
+            <p>
+                <input type="submit" class="btn btn-danger btn-fill" name="process_2"
+                       value="Заполнить ссылки на сайт / товары">
+                <span class="small"> - заполнение поля "URL на сайте HANSA" по всем товарам HCL.
+                    Время завыполнения ~ 2 часа...</span>
+            </p>
+            <p>
+                <input type="submit" class="btn btn-danger btn-fill" name="process_3"
+                       value="Заполнить серверные пути / товары">
+                <span class="small"> - заполнение поля "PATH на локальный сервер HCL"
+                    серверные пути к хранилищу HCL</span>
+            </p>
+            <p>
+                <input type="submit" class="btn btn-danger btn-fill" name="process_4"
+                       value="Заполнить поля рич-контента / товары">
+                <span class="small"> - заполнение полей связанных с рич-контентом по всем товарам HCL</span>
+            </p>
+        </form>
+        {% if alert_product %}
+            {% include "core_app/notification_failed.html" %}
+        {% endif %}
+    </div>
+{% endblock %}

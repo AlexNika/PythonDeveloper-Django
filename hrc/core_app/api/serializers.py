@@ -17,6 +17,10 @@ class CategorySerializer(serializers.HyperlinkedModelSerializer):
                   'category_image',
                   'user_id',
                   'is_active']
+        lookup_field = 'category_short_name'
+        extra_kwargs = {
+            'url': {'lookup_field': 'category_short_name'}
+        }
 
 
 class ProductSerializer(serializers.HyperlinkedModelSerializer):
@@ -40,3 +44,7 @@ class ProductSerializer(serializers.HyperlinkedModelSerializer):
                   'product_external_url',
                   'user_id',
                   'is_active']
+        lookup_field = 'product_code'
+        extra_kwargs = {
+            'url': {'lookup_field': 'product_code'}
+        }

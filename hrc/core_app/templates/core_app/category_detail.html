@@ -55,13 +55,9 @@
         </div>
         <div class="space-30"></div>
         <div class="submit">
-            <a href="{% url 'core_app:category_update' slug=category.category_short_name %}"
+            <a href="{% url 'core_app:category_update' slug=category.category_slug %}"
                class="btn btn-danger btn-fill pull-left">
             Изменить категорию
-            </a>
-{#            <a href="{% url 'core_app:category_delete' pk=object.pk %}" class="btn btn-danger btn-fill pull-right">#}
-            <a href="{{ category.get_absolute_url }}" class="btn btn-danger btn-fill pull-right">
-                Удалить категорию
             </a>
         </div>
     </div>

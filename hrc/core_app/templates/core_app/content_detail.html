@@ -1,0 +1,148 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+    {{ content.product.product_description }} - базовый рич-контент
+{% endblock %}
+{% block content %}
+    <link href="{% static 'assets/css/fresh-bootstrap-table.css' %}" rel="stylesheet"/>
+        <div class="fresh-table full-color-transparent">
+            <h4 class="section-title-center">{{ content.product.product_description }} - базовый рич-контент</h4>
+            <table id="fresh-table" class="table">
+                <tbody>
+                <tr>
+                    <td>
+                        Верстка:
+                        {% if not content.layout %}
+                            <span class="pull-right-red">{{ content.layout|yesno:"Да,Нет" }}</span>
+                        {% else %}
+                            <span class="pull-right-green">{{ content.layout|yesno:"Да,Нет" }}</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Видео обзор:
+                        <span class="pull-right text-muted">{{ content.videos|yesno:"Да,Нет" }}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Инструкции:
+                        <span class="pull-right text-muted">{{ content.manuals|yesno:"Да,Нет" }}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Макет:
+                        <span class="pull-right text-muted">{{ content.maquette|yesno:"Да,Нет" }}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Маркетинговое описание:
+                        <span class="pull-right text-muted">{{ content.descriptions|yesno:"Да,Нет" }}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Анимация фото 3D:
+                        <span class="pull-right text-muted">{{ content.photos_3d|yesno:"Да,Нет" }}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Фотографии в интерьере:
+                        <span class="pull-right text-muted">{{ content.interior_photos|yesno:"Да,Нет" }}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Фотографии дополнительные:
+                        <span class="pull-right text-muted">{{ content.auxiliary_photos|yesno:"Да,Нет" }}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Фотографии товара:
+                        <span class="pull-right text-muted">{{ content.photos|yesno:"Да,Нет" }}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Характеристики:
+                        <span class="pull-right text-muted">{{ content.characteristics|yesno:"Да,Нет" }}</span>
+                    </td>
+                </tr>
+{#                <tr>#}
+{#                    <td>#}
+{#                        URL на сайте HANSA:#}
+{#                        <span class="pull-right text-muted">#}
+{#                            {% if product.product_site_url %}#}
+{#                                <a href="{{ product.product_site_url }}" target="_blank">#}
+{#                                    {{ product.product_site_url }}#}
+{#                                </a>#}
+{#                            {% else %}#}
+{#                                {{ product.product_site_url }}#}
+{#                            {% endif %}#}
+{#                        </span>#}
+{#                    </td>#}
+{#                </tr>#}
+{#                <tr>#}
+{#                    <td>#}
+{#                        Local PATH:#}
+{#                        <div class="pull-right text-muted">#}
+{#                            {% if product.product_internal_path %}#}
+{#                                <div>#}
+{#                                    <span id={{ product.id }}>#}
+{#                                        {{ product.product_internal_path }}#}
+{#                                    </span>#}
+{#                                    <span>#}
+{#                                        <button class="submit btn btn-danger btn-click" id="cp_btn">Copy</button>#}
+{#                                    </span>#}
+{#                                </div>#}
+{#                            {% else %}#}
+{#                                {{ product.product_internal_path }}#}
+{#                            {% endif %}#}
+{#                        </div>#}
+{#                    </td>#}
+{#                </tr>#}
+{##}
+{#                <tr>#}
+{#                    <td>#}
+{#                        FTP URL в Hansa content library:#}
+{#                        <span class="pull-right text-muted">{{ product.product_external_url }}</span>#}
+{#                    </td>#}
+{#                </tr>#}
+                </tbody>
+            </table>
+        </div>
+        <div class="space-30"></div>
+{#        <div class="submit">#}
+{#            <a href="{% url 'core_app:product_update' slug=product.product_index %}"#}
+{#               class="btn btn-danger btn-fill pull-left">#}
+{#                Изменить товар#}
+{#            </a>#}
+{#            <a href="{% url 'core_app:category_delete' pk=product.pk %}" class="btn btn-danger btn-fill pull-right">#}
+{#            <a href="{{ product.get_absolute_url }}" class="btn btn-danger btn-fill pull-right">#}
+{#                Удалить товар#}
+{#            </a>#}
+{#        </div>#}
+    <script type="text/javascript">
+        document.getElementById('cp_btn').addEventListener('click', copyText);
+        function copyText() {
+            var copyText = document.getElementById({{ product.id }});
+            var range = document.createRange()
+            range.selectNode(copyText);
+            window.getSelection().addRange(range);
+              try {
+                    var successful = document.execCommand('copy');
+                    var msg = successful ? 'successful' : 'unsuccessful';
+                    console.log('Copy local server PATH was ' + msg);
+                    }
+              catch(err) {
+                    console.log('Oops, unable to copy');
+                    }
+            window.getSelection().removeAllRanges();
+        }
+    </script>
+{% endblock %}
