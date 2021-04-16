@@ -6,7 +6,7 @@ click==7.1.2
 Django==3.0.7
 django-annoying==0.10.6
 django-cleanup==5.0.0
-django-debug-toolbar==2.2
+django-debug-toolbar==2.2.1
 django-filter==2.3.0
 django-reversion==3.0.7
 djangorestframework==3.11.0
